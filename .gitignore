@@ -1,0 +1,9 @@
+# vscode files
+.vscode
+*.sqlite3
+config/__pycache__
+./datadoc/__pycache__
+*.pyc
+*/node_modules
+*/package-lock.json
+*/package.json
