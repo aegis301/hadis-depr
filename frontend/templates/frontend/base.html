@@ -19,8 +19,24 @@
 		{% endif %}
 	</head>
 	<body>
-		<h1>Shown from the Base template</h1>
-		<div class="container">{% block content %} {% endblock content %}</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+                <a class="navbar-brand" href="/">HADIS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link" href="/forms">Forms</a>
+                      <a class="nav-link" href="/show_patients">Patients</a>
+                    </div>
+            </div>
+		</nav>
+
+		<div class="container">
+			<h1>Shown from the Base template</h1>
+			{% block content %} {% endblock content %}
+		</div>
 
 		<!-- Option 1: Bootstrap Bundle with Popper -->
 		<script
