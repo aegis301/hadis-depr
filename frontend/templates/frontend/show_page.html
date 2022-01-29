@@ -1,0 +1,13 @@
+{% extends "frontend/base.html" %} 
+{% block content %}
+<h1>Welcome to HADIS</h1>
+<h2>Hospital Acquired Data Integration System</h2>
+<h3>On this page, patients will be displayed</h3>
+{% for patient in patients %}
+<h4>{{ patient.last_name }}</h4>
+<p>First Name: {{ patient.first_name }}</p>
+<p>DoB: {{ patient.date_of_birth }}</p>
+<p>Main Diagnosis: {{ patient.main_diagnosis }}</p>
+{% endfor %}
+{% endblock content %}
+
