@@ -40,6 +40,9 @@ def home(request):
 
 
 def forms(request):
+    context = {
+        'title': 'Forms'
+    }
     return render(request, 'frontend/forms.html')
 
 
