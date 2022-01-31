@@ -1,7 +1,44 @@
-{% extends "frontend/base.html" %} 
-{% block content %}
-<h1>Welcome to HADIS</h1>
-<h2>Hospital Acquired Data Integration System</h2>
-<h3>This is the forms page</h3>
-{% endblock content %}
+{% extends "frontend/base.html" %} {% block content %}
+<h2 id="forms-main-header">Available Forms</h2>
+<div class="container">
+	<button type="button" class="btn btn-primary mb-3">Create New Form</button>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="card" style="width: 18rem">
+				<div class="card-body">
+					<h5 class="card-title">Echocardiography</h5>
+					<p class="card-text">
+						Standard form for results of echocardiography in our outpatients
+						clinic.
+					</p>
+					<a href="#" class="btn btn-primary">Open</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card" style="width: 18rem">
+				<div class="card-body">
+					<h5 class="card-title">Lab Results</h5>
+					<p class="card-text">Lab results from standard laboratory tests.</p>
+					<a href="#" class="btn btn-primary">Open</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card" style="width: 18rem">
+				<div class="card-body">
+					<h5 class="card-title">Geriatric Scoring</h5>
+					<p class="card-text">
+						Our standard geriatric scoring system for patients > 75 years of
+						age.
+					</p>
+					<a href="#" class="btn btn-primary">Open</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
+{% endblock content %}

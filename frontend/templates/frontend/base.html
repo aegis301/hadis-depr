@@ -14,6 +14,7 @@
 		/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 		<link rel="stylesheet" type="text/css" href="{% static 'frontend/main.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'frontend/forms.css' %}">
 		{% if title %}
 		<title>HADIS - {{ title }}</title>
 
@@ -30,8 +31,8 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav mr-auto">
-                      <a class="nav-link" href="/forms">Forms</a>
-                      <a class="nav-link" href="/show_patients">Patients</a>
+                      <a class="nav-link" href="{% url 'forms-show' %}">Forms</a>
+                      <a class="nav-link" href="{% url 'patients-show' %}">Patients</a>
                     </div>
 					<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 						<div class="navbar-nav justify-content-end">
