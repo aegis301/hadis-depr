@@ -1,8 +1,7 @@
 # vscode files
 .vscode
+*/__pycache__
 *.sqlite3
-config/__pycache__
-./datadoc/__pycache__
 *.pyc
 */node_modules
 */package-lock.json
