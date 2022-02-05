@@ -1,9 +1,10 @@
 {% extends "frontend/base.html" %} 
 {% block content %}
+<div class="container mt-3">
 <h1>Welcome to HADIS</h1>
 <h2>Hospital Acquired Data Integration System</h2>
 <h3>On this page, patients will be displayed</h3>
-<table class="table">
+<table class="table mt-3">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -25,6 +26,7 @@
         {% endfor %}
     </tbody>
   </table>
+</div>
 
 {% endblock content %}
 
