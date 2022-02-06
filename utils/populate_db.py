@@ -1,6 +1,6 @@
 import names
 import random
-from helpers import get_random_date, get_random_diagnosis
+from utils.populate_helpers import get_random_date, get_random_diagnosis
 
 class DummyPatient():
     def __init__(self, *args, **kwargs):

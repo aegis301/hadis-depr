@@ -8,6 +8,7 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
     date_of_birth = models.DateTimeField()
+    kis_id = models.CharField(max_length=12)
     gender = models.BooleanField()
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING) # don't delete patients if a user is deleted

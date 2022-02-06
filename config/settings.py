@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+# custom imports
+import os
+from dotenv import load_dotenv, find_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# custom env variable handling
+load_dotenv(find_dotenv())
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PWD = os.getenv('POSTGRES_PWD')
 
 
 # Quick-start development settings - unsuitable for production
@@ -79,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'hadis',
-        'USER': 'christian',
-        'PASSWORD': 'Chr48149!',
+        'USER': POSTGRES_USER,
+        'PASSWORD': POSTGRES_PWD,
         'HOST': 'localhost',
     }
 }
