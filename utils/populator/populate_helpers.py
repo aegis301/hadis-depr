@@ -1,6 +1,5 @@
 import random
 import datetime
-from ssl import create_default_context
 import requests
 
 # test out random creation of boolean values
@@ -84,7 +83,9 @@ def get_random_diagnosis():
             response = requests.get(url, params=payload)
     # if 'Error' is not found in the keys, we have valid ICD10 code and can proceed.
     except KeyError:
-        return response.json()
+        return response.json()['Description']
+    
+
 
 if __name__ == '__main__':
     # r = get_random_diagnosis()
