@@ -14,9 +14,6 @@ class DummyPatient(object):
         self.date_of_birth = get_random_date()
         self.diagnosis = get_random_diagnosis()
 
-    def insert_data():
-        pass
-
 
 if __name__ == '__main__':
     patients = []

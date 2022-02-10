@@ -83,7 +83,7 @@ def get_random_diagnosis():
             response = requests.get(url, params=payload)
     # if 'Error' is not found in the keys, we have valid ICD10 code and can proceed.
     except KeyError:
-        return response.json()['Description']
+        return response.json()['Description'].strip().replace(',', '')
     
 
 
@@ -92,4 +92,3 @@ if __name__ == '__main__':
     # print(r.text)
     diagnosis = get_random_diagnosis()
     print(diagnosis)
-    print(diagnosis['Description'])

@@ -12,6 +12,6 @@ class Patient(models.Model):
     gender = models.BooleanField()
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING) # don't delete patients if a user is deleted
-    main_diagnosis = models.CharField(max_length=400)
+    main_diagnosis = models.CharField(max_length=1000, blank=False)
     
     

@@ -30,11 +30,12 @@ class DBPopulator():
         with self.engine.connect() as conn:
             with conn.begin():
                 meta = MetaData(conn)
-                table = Table('api_patient', meta, autoload_with=self.engine)
+                table = Table('api_patient', meta, autoload=True)
                 stmt = insert(table)
                 payload = [patient.__dict__ for patient in self.patients]
+                print('This is the payload:', payload)
                 result_proxy = conn.execute(stmt, payload)
-                print('Insertet {} rows.'.format(result_proxy.rowcount))
+                print('Inserted {} rows.'.format(result_proxy.rowcount))
                 
             
     
@@ -44,9 +45,11 @@ if __name__ == '__main__':
     populator = DBPopulator()
 
     populator.get_n_patients(3)
-    print(populator.patients[0].first_name)
+    print(populator.patients)
+    for patient in populator.patients:
+        print(patient.__dict__)
+
     populator.patients_to_db()
-    # populator.patients_to_db()
     
     
        
