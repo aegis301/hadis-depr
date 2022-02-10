@@ -10,8 +10,8 @@ class DBPopulator():
             
     
     def patients_to_db(self):
-        self.patients.save()
-                
+        Patients.objects.bulk_create()
+
             
     
     
