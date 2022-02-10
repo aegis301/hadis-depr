@@ -23,8 +23,9 @@ class DBPopulator():
             
     
     def patients_to_db(self):
-        import mongoengine
-                
+        from sqlalchemy import Table, MetaData, insert
+        from sqlalchemy.engine.base import Connection
+        
         conn: Connection
         with self.engine.connect() as conn:
             with conn.begin():
