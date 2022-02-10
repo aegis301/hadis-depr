@@ -1,8 +1,8 @@
 import names
 import random
-from populate_helpers import generate_random_icd_code, get_random_date, get_random_diagnosis
+from populate_helpers import get_random_date, get_random_diagnosis
 
-class DummyPatient():
+class DummyPatient(object):
     def __init__(self, *args, **kwargs):
         self.gender = bool(random.getrandbits(1))
         self.kis_id = random.randint(10000000, 99999999)
@@ -21,6 +21,7 @@ class DummyPatient():
 if __name__ == '__main__':
     patients = []
     
-    for i in range(0,1000):
+    for i in range(0,3):
         patients.append(DummyPatient())
         print(i,'th iteration, Patient created successfully.')
+        print(patients[i].__dict__)
