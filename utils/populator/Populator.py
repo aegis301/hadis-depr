@@ -44,7 +44,7 @@ if __name__ == '__main__':
     
     populator = DBPopulator()
 
-    populator.get_n_patients(1000)
+    populator.get_n_patients(1)
     print(populator.patients)
     for patient in populator.patients:
         print(patient.__dict__)

@@ -1,6 +1,7 @@
 import names
 import random
 from populate_helpers import get_random_date, get_random_diagnosis
+from datetime import datetime
 
 class DummyPatient(object):
     def __init__(self, *args, **kwargs):
@@ -12,7 +13,8 @@ class DummyPatient(object):
             self.first_name = names.get_first_name(gender='female')
         self.last_name = names.get_last_name()
         self.date_of_birth = get_random_date()
-        self.diagnosis = get_random_diagnosis()
+        self.created_at = datetime.now()
+        self.main_diagnosis = get_random_diagnosis()
 
 
 if __name__ == '__main__':
