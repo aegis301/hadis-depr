@@ -1,39 +1,14 @@
+import os
+
 from django.shortcuts import render
-from django.http import HttpResponse
+from dotenv import find_dotenv, load_dotenv
+from sqlalchemy import MetaData, Table, create_engine, insert, select
+from sqlalchemy.engine.base import Connection
 
-patients = [
-    {
-        'id': '12345',
-        'first_name': 'Legolas',
-        'last_name': 'Grunblatt',
-        'main_diagnosis': 'Awesomeritis',
-        'date_of_birth': '01.01.1990'
-    },
-    {
-        'id': '67899',
-        'first_name': 'Gandalf',
-        'last_name': 'Gray',
-        'main_diagnosis': 'Whiteness',
-        'date_of_birth': '01.01.1800'
-    },
-    {
-        'id': '67289',
-        'first_name': 'Gimli',
-        'last_name': 'Gloinsson',
-        'main_diagnosis': 'Stubbornness',
-        'date_of_birth': '01.01.1970'
-    },
-    {
-        'id': '25942',
-        'first_name': 'Aragorn',
-        'last_name': 'Streicher',
-        'main_diagnosis': 'Kingliness',
-        'date_of_birth': '01.01.1975'
-    }
-]
-
-# Create your views here.
-
+# custom env variable handling
+load_dotenv(find_dotenv())
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PWD = os.getenv('POSTGRES_PWD')
 
 def home(request):
     return render(request, 'frontend/home.html')
@@ -47,6 +22,17 @@ def forms(request):
 
 
 def show_page(request):
+    engine = create_engine('postgresql://{}:{}@localhost:5432/hadis'.format(POSTGRES_USER, POSTGRES_PWD))
+    
+    conn: Connection
+    with engine.connect() as conn:
+        with conn.begin():
+            meta = MetaData(conn)
+            table = Table('api_patient', meta, autoload=True)
+            stmt = select(table)
+            patients = conn.execute(stmt)
+            print(patients)
+    
     context = {
         'patients': patients,
         'title': 'Show Patients'

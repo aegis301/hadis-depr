@@ -20,7 +20,7 @@
             <th scope="row">{{ patient.id }}</th>
             <td>{{ patient.last_name }}</td>
             <td>{{ patient.first_name }}</td>
-            <td>{{ patient.date_of_birth }}</td>
+            <td>{{ patient.date_of_birth|date:'d.m.o' }}</td>
             <td>{{ patient.main_diagnosis }}</td>
           </tr>
         {% endfor %}
