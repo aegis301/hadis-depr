@@ -14,4 +14,6 @@ class Patient(models.Model):
     # created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING) # don't delete patients if a user is deleted
     main_diagnosis = models.CharField(max_length=1000, blank=False)
     
+class DataForms(models.Model):
+    name = models.CharField(max_length=200)
     
