@@ -36,6 +36,8 @@
                     </div>
 					<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 						<div class="navbar-nav justify-content-end">
+							  <a class="nav-link" href="{% url 'user-registration' %}">Register</a>
+							  <a class="nav-link" href="{% url 'user-login' %}">Login</a>
 							<a class="nav-link" href="#"><i class="bi bi-person-circle" width="3em" height="3em"></i></a>
 						</div>
 						</div>
@@ -43,6 +45,13 @@
 		</nav>
 
 		<div class="container">
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
 			{% block content %} {% endblock content %}
 		</div>
 
