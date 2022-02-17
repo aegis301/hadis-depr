@@ -1,0 +1,14 @@
+{% extends "frontend/base.html" %} 
+
+{% block content %}
+<h2>You have been logged out</h2>
+<div class="container">
+	<div class="container">
+        <div class-="content-section">
+            <div class="border-top pt-3">
+                <small class="text-muted"><a href="{% url 'user-login' %}" class="ml-2">Log In Again</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
