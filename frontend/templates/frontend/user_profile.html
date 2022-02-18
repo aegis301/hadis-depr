@@ -1,4 +1,14 @@
 {% extends "frontend/base.html" %}
 {% block content %}
-<h1 class="mt-4"> {{ user.username }}</h1>
+<div class="container">
+    <div class="content-section">
+        <img class="rounded-circle mw-10 mh-10" alt="100x100" src="{{ user.profile.image.url }}" data-holder-rendered="true">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>
+</div>
+
 {% endblock content %}
