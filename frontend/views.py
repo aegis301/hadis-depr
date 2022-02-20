@@ -2,6 +2,7 @@ import os
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 from dotenv import find_dotenv, load_dotenv
 from sqlalchemy import MetaData, Table, create_engine, insert, select
 from sqlalchemy.engine.base import Connection
@@ -52,8 +53,8 @@ def register_user(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('hadis-home')
+            messages.success(request, f'Your accouunt has been created successfully! You are now able to log in.')
+            return redirect('user-login')
     else:
         # else its a get request, so just create an empty form
         form = UserRegistrationForm()
@@ -61,6 +62,6 @@ def register_user(request):
         'form': form
     })
 
-
-def login_user(request):
-    return render(request, 'frontend/user_login.html')
+@login_required
+def user_profile(request):
+    return render(request, 'frontend/user_profile.html')
