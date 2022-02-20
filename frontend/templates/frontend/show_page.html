@@ -4,7 +4,7 @@
 <h1>Welcome to HADIS</h1>
 <h2>Hospital Acquired Data Integration System</h2>
 <h3>On this page, patients will be displayed</h3>
-<table class="table mt-3 content-section">
+<table class="table table-hover mt-3 content-section">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -16,8 +16,8 @@
     </thead>
     <tbody>
         {% for patient in patients %}
-        <tr>
-            <th scope="row">{{ patient.id }}</th>
+        <tr style="transform: rotate(0);">
+            <th scope="row"><a href="#" class="stretched-link">{{ patient.id }}</a></th>
             <td>{{ patient.last_name }}</td>
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.date_of_birth|date:'d.m.o' }}</td>
