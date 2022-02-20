@@ -1,4 +1,6 @@
-{% extends "frontend/base.html" %} {% block content %}
+{% extends "frontend/base.html" %} 
+{% load crispy_forms_tags %}
+{% block content %}
 <div class="content-section mt-3">
 	<div class="media">
 		<img
@@ -11,5 +13,16 @@
 		</div>
 	</div>
 	<!-- FORM HERE -->
+	<form method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4 mt-3">Update Profile Info</legend>
+			{{ u_update_form|crispy }}
+      {{ p_update_form|crispy }}
+		</fieldset>
+		<div class="form-group">
+			<button type="submit" class="btn btn-success">Update</button>
+		</div>
+	</form>
 </div>
 {% endblock content %}
