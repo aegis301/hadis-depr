@@ -1,11 +1,14 @@
 import os
+from pyexpat import model
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
 from dotenv import find_dotenv, load_dotenv
 from sqlalchemy import MetaData, Table, create_engine, insert, select
 from sqlalchemy.engine.base import Connection
+from api.models import Patient
 
 from api.models import Profile
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
@@ -25,6 +28,17 @@ def forms(request):
     return render(request, "frontend/forms.html")
 
 
+class PatientListView(ListView):
+    # automatically hands all retrieved objects down to the template as object_list
+    model = Patient
+    template_name = 'frontend/patient_list.html' # <app>/<model>_<viewtype>.html
+    # context_object_name = 'patients'
+    ordering = ['id']
+    
+class PatientDetailView(DetailView):
+    model = Patient
+    template_name = 'frontend/patient_detail.html'
+
 def show_page(request):
     engine = create_engine(
         "postgresql://{}:{}@localhost:5432/hadis".format(POSTGRES_USER, POSTGRES_PWD)
@@ -39,8 +53,8 @@ def show_page(request):
             patients = conn.execute(stmt)
             print(patients)
 
-    context = {"patients": patients, "title": "Show Patients"}
-    return render(request, "frontend/show_page.html", context)
+    context = {"patients": patients, "title": "List Patients"}
+    return render(request, "frontend/patient_list.html", context)
 
 
 # user registration form

@@ -81,3 +81,7 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  .button-box {
+    text-align: center;
+  }

@@ -1,0 +1,40 @@
+{% extends "frontend/base.html" %} 
+{% block content %}
+<div class="container-fluid mt-3 content-section">
+<h1>Welcome to HADIS</h1>
+<h2>Hospital Acquired Data Integration System</h2>
+<h3>On this page, details of a patient will be displayed</h3>
+<div class="row align-items-start">
+    <table class="table table-hover mt-3 content-section">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Main Diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr style="transform: rotate(0);">
+                <td>{{ object.id }}</td>
+                <td>{{ object.last_name }}</td>
+                <td>{{ object.first_name }}</td>
+                <td>{{ object.date_of_birth|date:'d.m.o' }}</td>
+                <td>{{ object.main_diagnosis }}</td>
+              </tr>
+        </tbody>
+      </table>
+</div>
+<div class="row">
+    <div class="button-box">
+    <a name="back-btn" id="back-btn" class="btn btn-outline-info" href="{% url 'patients-list'%}" role="button">Back</a>
+    <a name="back-btn" id="back-btn" class="btn btn-outline-warning" href="# role="button">Edit</a>
+    <a name="back-btn" id="back-btn" class="btn btn-outline-danger" href="#" role="button">Delete</a>
+</div>
+</div>
+</div>
+
+{% endblock content %}
+
+
