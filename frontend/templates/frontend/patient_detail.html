@@ -13,6 +13,9 @@
             <th scope="col">First Name</th>
             <th scope="col">Date of Birth</th>
             <th scope="col">Main Diagnosis</th>
+            <th scope="col">KIS ID</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Created By</th>
           </tr>
         </thead>
         <tbody>
@@ -22,15 +25,18 @@
                 <td>{{ object.first_name }}</td>
                 <td>{{ object.date_of_birth|date:'d.m.o' }}</td>
                 <td>{{ object.main_diagnosis }}</td>
+                <td>{{ object.kis_id }}</td>
+                <td>{{ object.created_at }}</td>
+                <td>{{ object.created_by }}</td>
               </tr>
         </tbody>
       </table>
 </div>
 <div class="row">
     <div class="button-box">
-    <a name="back-btn" id="back-btn" class="btn btn-outline-info float-start" href="{% url 'patients-list'%}" role="button">Back</a>
-    <a name="delete-btn" id="edit-btn" class="btn btn-danger float-end" href="#" role="button">Delete</a>
-    <a name="edit-btn" id="delete-btn" class="btn btn-warning float-end" href="#" role="button">Edit</a>
+    <a name="back-btn" id="back-btn" class="btn btn-outline-info float-start" href="{% url 'patient-list'%}" role="button">Back</a>
+    <a name="delete-btn" id="edit-btn" class="btn btn-danger float-end" href="{% url 'patient-delete' object.id%}" role="button">Delete</a>
+    <a name="edit-btn" id="delete-btn" class="btn btn-warning float-end" href="{% url 'patient-update' object.id%}" role="button">Edit</a>
 </div>
 </div>
 </div>

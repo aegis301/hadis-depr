@@ -4,19 +4,10 @@ from pyexpat import model
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView
-from dotenv import find_dotenv, load_dotenv
-from sqlalchemy import MetaData, Table, create_engine, insert, select
-from sqlalchemy.engine.base import Connection
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from api.models import Patient
-
-from api.models import Profile
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
-
-# custom env variable handling
-load_dotenv(find_dotenv())
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PWD = os.getenv("POSTGRES_PWD")
 
 
 def home(request):
@@ -28,39 +19,70 @@ def forms(request):
     return render(request, "frontend/forms.html")
 
 
-class PatientListView(ListView):
+############################################################ Patient CRUD #####################################################
+
+
+class PatientListView(LoginRequiredMixin, ListView):
     # automatically hands all retrieved objects down to the template as object_list
     model = Patient
-    template_name = 'frontend/patient_list.html' # <app>/<model>_<viewtype>.html
+    template_name = "frontend/patient_list.html"  # <app>/<model>_<viewtype>.html
     # context_object_name = 'patients'
-    ordering = ['id']
-    
-class PatientDetailView(DetailView):
+    ordering = ["-created_at"]
+
+
+class PatientDetailView(LoginRequiredMixin, DetailView):
     model = Patient
-    template_name = 'frontend/patient_detail.html'
-    
-class PatientCreateView(CreateView):
+    template_name = "frontend/patient_detail.html"
+
+
+class PatientCreateView(LoginRequiredMixin, CreateView):
     model = Patient
-    template_name = 'frontend/patient_create.html'
+    template_name = "frontend/patient_create.html"
+    fields = ["last_name", "first_name", "date_of_birth", "gender", "kis_id", "main_diagnosis"]
 
-def show_page(request):
-    engine = create_engine(
-        "postgresql://{}:{}@localhost:5432/hadis".format(POSTGRES_USER, POSTGRES_PWD)
-    )
+    # make custom form version to define required and non required fields
+    def get_form(self, form_class=None):
+        form = super(PatientCreateView, self).get_form(form_class)
+        form.fields['main_diagnosis'].required = False
+        return form
+    # over write the default validation function
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+    
+class PatientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Patient
+    template_name = "frontend/patient_create.html"
+    fields = ["last_name", "first_name", "date_of_birth", "gender", "kis_id", "main_diagnosis"]
+    
+    
+    def get_form(self, form_class=None):
+        form = super(PatientUpdateView, self).get_form(form_class)
+        form.fields['main_diagnosis'].required = False
+        return form
+    # over write the default validation function
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+    # custom test for user permission (used for UserPassesTestMixin)
+    def test_func(self):
+        patient = self.get_object()
+        if self.request.user == patient.created_by:
+            return True
+        return False
+    
+class PatientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Patient
+    template_name = "frontend/patient_confirm_delete.html"
+    success_url = "/patient/list/"
 
-    conn: Connection
-    with engine.connect() as conn:
-        with conn.begin():
-            meta = MetaData(conn)
-            table = Table("api_patient", meta, autoload=True)
-            stmt = select(table)
-            patients = conn.execute(stmt)
-            print(patients)
+    def test_func(self):
+        patient = self.get_object()
+        if self.request.user == patient.created_by:
+            return True
+        return False
 
-    context = {"patients": patients, "title": "List Patients"}
-    return render(request, "frontend/patient_list.html", context)
-
-
+############################################################ USER Management #####################################################
 # user registration form
 def register_user(request):
     # if post request, send data
@@ -91,8 +113,8 @@ def user_profile(request):
         if u_update_form.is_valid() and p_update_form.is_valid():
             u_update_form.save()
             p_update_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('user-profile')
+            messages.success(request, f"Your account has been updated!")
+            return redirect("user-profile")
 
     else:  # its a get request, don't send any data, just display the forms
         u_update_form = UserUpdateForm(instance=request.user)
