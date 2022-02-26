@@ -4,7 +4,7 @@ from pyexpat import model
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from dotenv import find_dotenv, load_dotenv
 from sqlalchemy import MetaData, Table, create_engine, insert, select
 from sqlalchemy.engine.base import Connection
@@ -38,6 +38,10 @@ class PatientListView(ListView):
 class PatientDetailView(DetailView):
     model = Patient
     template_name = 'frontend/patient_detail.html'
+    
+class PatientCreateView(CreateView):
+    model = Patient
+    template_name = 'frontend/patient_create.html'
 
 def show_page(request):
     engine = create_engine(
