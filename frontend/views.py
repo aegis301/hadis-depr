@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from api.models import Patient
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
@@ -28,6 +29,7 @@ class PatientListView(LoginRequiredMixin, ListView):
     template_name = "frontend/patient_list.html"  # <app>/<model>_<viewtype>.html
     # context_object_name = 'patients'
     ordering = ["-created_at"]
+    paginate_by = 12
 
 
 class PatientDetailView(LoginRequiredMixin, DetailView):
