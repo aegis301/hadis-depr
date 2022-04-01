@@ -1,5 +1,6 @@
 from email.policy import default
-from django.db import models
+from djongo import models
+# from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -38,8 +39,8 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username} Profile"
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
 
         # get image path and open it
         img = Image.open(self.image.path)

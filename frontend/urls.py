@@ -35,4 +35,5 @@ urlpatterns = [
         name="user-logout",
     ),
     path("user_profile/", views.user_profile, name="user-profile"),
+    path("user_list/<str:username>/", views.UserPatientListView.as_view(), name="user-posts"),
 ]

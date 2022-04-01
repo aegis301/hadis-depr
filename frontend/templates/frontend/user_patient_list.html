@@ -1,0 +1,54 @@
+{% extends "frontend/base.html" %} 
+{% block content %}
+<div class="container mt-3">
+<h1>Welcome to HADIS</h1>
+<h2>Hospital Acquired Data Integration System</h2>
+<h3>Patients by {{ view.kwargs.username }}</h3>
+<a name="create-patient-btn" id="create-patient-btn" class="btn btn-primary" href="{% url 'patient-create'%}" role="button">New Patient</a>
+<table class="table table-hover mt-3 content-section">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Main Diagnosis</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for patient in object_list %}
+        <tr style="transform: rotate(0);">
+            <th scope="row"><a href="{% url 'patient-detail' patient.id%}" class="stretched-link">{{ patient.id }}</a></th>
+            <td>{{ patient.last_name }}</td>
+            <td>{{ patient.first_name }}</td>
+            <td>{{ patient.date_of_birth|date:'d.m.o' }}</td>
+            <td>{{ patient.main_diagnosis }}</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% if is_paginated %}
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>  
+  {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>  
+  {% endif %}
+
+
+{% endif %}
+{% endblock content %}
+</div>
+
+
+

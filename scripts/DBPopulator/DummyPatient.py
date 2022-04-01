@@ -2,7 +2,7 @@ from distutils.command.build_scripts import first_line_re
 import names
 import random
 from mongoengine import Document, BooleanField, StringField, IntField, DateTimeField
-from populate_helpers import get_random_date, get_random_diagnosis
+from .populate_helpers import get_random_date, get_random_diagnosis
 from datetime import datetime
 
 class DummyPatient(object):
@@ -19,6 +19,7 @@ class DummyPatient(object):
         self.main_diagnosis = get_random_diagnosis()
 
 class MongoDummyPatient(Document):
+    id = IntField()
     gender = BooleanField()
     kis_id = IntField()
     last_name = StringField()
@@ -31,18 +32,6 @@ class MongoDummyPatient(Document):
         'collection': 'api_patient'
     }
     
-    def __init__(self, *args, **kwargs):
-        self.gender = bool(random.getrandbits(1))
-        self.kis_id = random.randint(10000000, 99999999)
-        if self.gender:
-            self.first_name = names.get_first_name(gender='male')
-        else:
-            self.first_name = names.get_first_name(gender='female')
-        self.last_name = names.get_last_name()
-        self.date_of_birth = get_random_date()
-        self.created_at = datetime.now()
-        self.main_diagnosis = get_random_diagnosis()
-
 
 
 if __name__ == '__main__':

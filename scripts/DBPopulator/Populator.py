@@ -1,3 +1,6 @@
+from scripts.DBPopulator.DummyPatient import MongoDummyPatient
+from api.models import Patient
+
 class PostgresDBPopulator():
     def __init__(self) -> None:
         import os
@@ -36,8 +39,40 @@ class PostgresDBPopulator():
                 print('This is the payload:', payload)
                 result_proxy = conn.execute(stmt, payload)
                 print('Inserted {} rows.'.format(result_proxy.rowcount))
-                
+             
+             
+class MongoDBPopulator():
+    def __init__(self) -> None:
+        from mongoengine import connect
+        
+        self.patients = list()
+        self.client = connect(host="mongodb://127.0.0.1/hadis")
+        
+    def get_n_patients(self, n):
+        from .DummyPatient import MongoDummyPatient
+        from .populate_helpers import get_random_diagnosis, get_random_date
+        import random
+        import names
+         
+        for i in range(n):
+            self.patients.append(
+                Patient(
+                    gender = bool(random.getrandbits(1)),
+                    kis_id = random.randint(10000000, 99999999),
+                    last_name = names.get_last_name(),
+                    date_of_birth = get_random_date(),
+                    main_diagnosis = get_random_diagnosis()
+                )
+            )
+            if self.patients[i].gender:
+                self.patients[i].first_name = names.get_first_name(gender='male')
+            else:
+                self.patients[i].first_name = names.get_first_name(gender='female')
+            print(f"{i+1}th Patient created succesfully!")
             
+    def patients_to_db(self):
+        Patient.objects.bulk_create(self.patients)
+        # print(f"{patient.last_name} successfully added to the database")
     
     
 if __name__ == '__main__':

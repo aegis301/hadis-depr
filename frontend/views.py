@@ -2,11 +2,12 @@ import os
 from pyexpat import model
 
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from api.models import Patient
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
@@ -27,7 +28,7 @@ class PatientListView(LoginRequiredMixin, ListView):
     # automatically hands all retrieved objects down to the template as object_list
     model = Patient
     template_name = "frontend/patient_list.html"  # <app>/<model>_<viewtype>.html
-    # context_object_name = 'patients'
+    # context_object_name = 'patient'
     ordering = ["-created_at"]
     paginate_by = 12
 
@@ -83,6 +84,16 @@ class PatientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == patient.created_by:
             return True
         return False
+    
+class UserPatientListView(LoginRequiredMixin, ListView):
+    model = Patient
+    template_name = "frontend/user_patient_list.html"  # <app>/<model>_<viewtype>.html
+    context_object_name = 'patient'
+    paginate_by = 12
+    
+    def get_query_set(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Patient.objects.filter(author=user).order_by('-created_at')
 
 ############################################################ USER Management #####################################################
 # user registration form

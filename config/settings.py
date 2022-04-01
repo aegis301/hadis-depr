@@ -86,12 +86,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'hadis',
+    #     'USER': POSTGRES_USER,
+    #     'PASSWORD': POSTGRES_PWD,
+    #     'HOST': 'localhost',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hadis',
-        'USER': POSTGRES_USER,
-        'PASSWORD': POSTGRES_PWD,
-        'HOST': 'localhost',
+        'ENGINE': 'djongo',
+        'NAME': 'hadis'
     }
 }
 
