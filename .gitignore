@@ -1,6 +1,8 @@
 # vscode files
 .vscode
-*/__pycache__
+*/__pycache__/
+utils/scripts/__pycache__/
+hadis/
 *.sqlite3
 *.pyc
 */node_modules

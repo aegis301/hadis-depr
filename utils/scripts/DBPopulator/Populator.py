@@ -1,4 +1,4 @@
-class DBPopulator():
+class PostgresDBPopulator():
     def __init__(self) -> None:
         import os
         from dotenv import load_dotenv, find_dotenv
@@ -42,7 +42,7 @@ class DBPopulator():
     
 if __name__ == '__main__':
     
-    populator = DBPopulator()
+    populator = PostgresDBPopulator()
 
     populator.get_n_patients(1)
     print(populator.patients)
