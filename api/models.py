@@ -1,7 +1,7 @@
 from email.policy import default
-from djongo import models
+# from djongo import models
 
-# from django.db import models
+from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -18,6 +18,7 @@ class Patient(models.Model):
     created_by = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,  # don't delete patients if a user is deleted
+        # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
 

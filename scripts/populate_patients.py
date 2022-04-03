@@ -6,7 +6,7 @@ from api.models import Patient
 def run():
     
     populator = PostgresDBPopulator()
-    populator.get_n_patients(150)
+    populator.get_n_patients(100)
     print(populator.patients)
     populator.patients_to_db()
     
