@@ -59,7 +59,7 @@ class BooleanItem(Item):
 class DateItem(Item):
     value = models.DateTimeField()
 
-class DataForms(models.Model):
+class DataForm(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(default=None)
     items = models.ManyToManyField(Item)
