@@ -19,7 +19,7 @@ class PostgresDBPopulator():
         self.Session = sessionmaker(self.engine)
         
     def get_n_patients(self, n):
-        from DummyPatient import DummyPatient
+        from .DummyPatient import DummyPatient
         for i in range(n):
             print('Patient Nr. {} created successfully!'.format(i+1))
             self.patients.append(DummyPatient())
