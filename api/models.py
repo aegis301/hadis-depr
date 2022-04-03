@@ -1,5 +1,6 @@
 from email.policy import default
 from djongo import models
+
 # from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -28,8 +29,46 @@ class Patient(models.Model):
         return reverse("patient-detail", kwargs={"pk": self.pk})
 
 
-class DataForms(models.Model):
+class Item(models.Model):
+    NUMERIC = "NUM"
+    TEXT = "TEXT"
+    BOOLEAN = "BOOL"
+    DATE = "DATE"
+
     name = models.CharField(max_length=200)
+    description = models.TextField(default=None)
+    ITEM_TYPE_CHOICES = (
+        (NUMERIC, "Numeric value"), 
+        (TEXT, "Text or Characters"),
+        (BOOLEAN, "Yes or No"),
+        (DATE, "Date and Time")
+        )
+    type = models.TextField(
+        choices=ITEM_TYPE_CHOICES, default=TEXT
+    )
+
+class NumericItem(Item):
+    value = models.FloatField()
+    
+class TextItem(Item):
+    value = models.TextField()
+
+class BooleanItem(Item):
+    value = models.BooleanField()
+    
+class DateItem(Item):
+    value = models.DateTimeField()
+
+class DataForms(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(default=None)
+    items = models.ManyToManyField(Item)
+
+    class Meta:
+        ordering = ["title"]
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class Profile(models.Model):
