@@ -1,6 +1,3 @@
-from multiprocessing.sharedctypes import Value
-
-
 def run():
     from api.models import Item, NumericItem, TextItem, DataForm
     
@@ -18,3 +15,6 @@ def run():
     
     f1.items.add(i1)
     f1.items.add(i2)
+    
+    print(f"Current forms: {DataForm.objects.all().title}")
+    # print(f"Current forms: {Item.objects.all().name}")

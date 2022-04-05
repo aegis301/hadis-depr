@@ -1,10 +1,9 @@
 from email.policy import default
-# from djongo import models
-
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from model_utils.managers import InheritanceManager # improve querying in inheritance models
 from PIL import Image
 
 # Create your models here.
@@ -35,6 +34,8 @@ class Item(models.Model):
     TEXT = "TEXT"
     BOOLEAN = "BOOL"
     DATE = "DATE"
+    
+    objects = InheritanceManager()
 
     name = models.CharField(max_length=200)
     description = models.TextField(default=None)
@@ -50,15 +51,20 @@ class Item(models.Model):
 
 class NumericItem(Item):
     value = models.FloatField()
-    
+    def __str__(self) -> str:
+        return self.name
 class TextItem(Item):
     value = models.TextField()
-
+    def __str__(self) -> str:
+        return self.name
 class BooleanItem(Item):
     value = models.BooleanField()
-    
+    def __str__(self) -> str:
+        return self.name
 class DateItem(Item):
     value = models.DateTimeField()
+    def __str__(self) -> str:
+        return self.name
 
 class DataForm(models.Model):
     title = models.CharField(max_length=200)
