@@ -1,4 +1,5 @@
 from email.policy import default
+from tkinter import NUMERIC
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -46,25 +47,32 @@ class Item(models.Model):
         (DATE, "Date and Time")
         )
     type = models.TextField(
-        choices=ITEM_TYPE_CHOICES, default=TEXT
+        choices=ITEM_TYPE_CHOICES
     )
 
 class NumericItem(Item):
-    value = models.FloatField()
+    value = models.FloatField(blank=True, null=True)
+    type = "NUM"
     def __str__(self) -> str:
         return self.name
 class TextItem(Item):
-    value = models.TextField()
+    value = models.TextField(blank=True, default="")
+    type = "TEXT"
     def __str__(self) -> str:
         return self.name
 class BooleanItem(Item):
-    value = models.BooleanField()
+    value = models.BooleanField(blank=True, null=True)
+    type = "BOOL"
     def __str__(self) -> str:
         return self.name
 class DateItem(Item):
-    value = models.DateTimeField()
+    value = models.DateTimeField(blank=True, null=True)
+    type = "DATE"
     def __str__(self) -> str:
         return self.name
+    
+### categorical items
+### range items
 
 class DataForm(models.Model):
     title = models.CharField(max_length=200)

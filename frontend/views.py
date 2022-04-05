@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from api.models import Patient
+from api.models import Patient, DataForm, Item, NumericItem, TextItem
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -94,8 +94,41 @@ class UserPatientListView(LoginRequiredMixin, ListView):
     def get_query_set(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Patient.objects.filter(author=user).order_by('-created_at')
-
-############################################################ USER Management #####################################################
+############################################################ DataForm and Item CRUD #####################################################    
+class DataFormListView(LoginRequiredMixin, ListView):
+    template_name = "frontend/dataform_list.html"
+    model = DataForm
+    
+class DataFormDetailView(LoginRequiredMixin, DetailView):
+    model = DataForm
+    template_name = "frontend/dataform_detail.html"
+    
+# class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = DataForm
+#     template_name = "frontend/dataform_create.html"
+#     fields = ["last_name", "first_name", "date_of_birth", "gender", "kis_id", "main_diagnosis"]
+    
+    
+#     def get_form(self, form_class=None):
+#         form = super(PatientUpdateView, self).get_form(form_class)
+#         form.fields['main_diagnosis'].required = False
+#         return form
+#     # over write the default validation function
+#     def form_valid(self, form):
+#         form.instance.created_by = self.request.user
+#         return super().form_valid(form)
+#     # custom test for user permission (used for UserPassesTestMixin)
+#     def test_func(self):
+#         patient = self.get_object()
+#         if self.request.user == patient.created_by:
+#             return True
+#         return False
+    
+class DataFormDeleteView(LoginRequiredMixin, DeleteView):
+    model = DataForm
+    template_name = "frontend/dataform_confirm_delete.html"
+    success_url = "/dataform/list/"
+############################################################ USER Management ############################################################
 # user registration form
 def register_user(request):
     # if post request, send data

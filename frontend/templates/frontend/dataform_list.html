@@ -1,0 +1,22 @@
+{% extends "frontend/base.html" %} {% block content %}
+<h2 id="forms-main-header">Available Forms</h2>
+<div class="container">
+	<button type="button" class="btn btn-primary mb-3">Create New Form</button>
+</div>
+<div class="container">
+	<div class="row">
+		{% for data_form in object_list %}
+		<div class="col-sm-3">
+			<div class="card" style="width: 18rem">
+				<div class="card-body">
+					<h5 class="card-title">{{data_form.title}}</h5>
+					<p class="card-text">{{data_form.description}}</p>
+					<a href="{% url 'dataform-detail' data_form.id %}" class="btn btn-primary">Open</a>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock content %}

@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", views.home, name="hadis-home"),
-    path("forms/", views.forms, name="forms-show"),
+    ################################# Patients #################################
     path("patient/list/", views.PatientListView.as_view(), name="patient-list"),
     path(
         "patient/<int:pk>/",
@@ -23,6 +23,8 @@ urlpatterns = [
         views.PatientDeleteView.as_view(),
         name="patient-delete",
     ),
+    
+    ################################# Users #################################
     path("user_registration/", views.register_user, name="user-registration"),
     path(
         "user_login/",
@@ -36,4 +38,10 @@ urlpatterns = [
     ),
     path("user_profile/", views.user_profile, name="user-profile"),
     path("user_list/<str:username>/", views.UserPatientListView.as_view(), name="user-posts"),
+    
+    ################################# DataForms #################################
+    # path("forms/", views.forms, name="forms-show"),
+    path("dataform/list/", views.DataFormListView.as_view(), name="dataform-list"),
+    path("dataform/<int:pk>/detail", views.DataFormDetailView.as_view(), name="dataform-detail"),
+    path("dataform/<int:pk>/delete/", views.DataFormDeleteView.as_view(), name="dataform-delete")
 ]
