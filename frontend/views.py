@@ -140,6 +140,20 @@ class DataFormTemplateDeleteView(LoginRequiredMixin, DeleteView):
     model = DataFormTemplate
     template_name = "frontend/dataform_confirm_delete.html"
     success_url = "/dataform/list/"
+############################################################ DataFormTemplate CRUD ##################################################### 
+class ItemCreateView(LoginRequiredMixin, CreateView):
+    model = Item
+    template_name = "frontend/item_create.html"
+    fields = ["name", "description", "type"]
+    # make custom form version to define required and non required fields
+    def get_form(self, form_class=None):
+        form = super(ItemCreateView, self).get_form(form_class)
+        # form.fields['main_diagnosis'].required = False
+        return form
+    # over write the default validation function
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 ############################################################ USER Management ############################################################
 # user registration form
 def register_user(request):

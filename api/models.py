@@ -29,6 +29,8 @@ class Item(models.Model):
     type = models.TextField(
         choices=ITEM_TYPE_CHOICES
     )
+    def get_absolute_url(self):
+        return reverse("dataform-detail", kwargs={"pk": self.pk})
 
 class NumericItem(Item):
     value = models.FloatField(blank=True, null=True)
