@@ -57,6 +57,8 @@ class DateItem(Item):
 ### range items
 
 class DataFormTemplate(models.Model):
+    
+    ### establish a many to many relationship with the Patients!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     title = models.CharField(max_length=200)
     description = models.TextField(default=None)
     items = models.ManyToManyField(Item, blank=True)
