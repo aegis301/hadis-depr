@@ -1,10 +1,12 @@
 from turtle import numinput, title
 from api.models import Item, NumericItem, TextItem, BooleanItem, DataFormTemplate
+from django.contrib.auth.models import User
 
-def create_echo():
+def create_echo(user):
     echo = DataFormTemplate(
         title="Echocardiography", 
-        description="Standard form for results of echocardiography in our outpatients clinic."
+        description="Standard form for results of echocardiography in our outpatients clinic.",
+        created_by= user
         )
     visual_sys_func = TextItem(
         name = "Visual Systolic Function",
@@ -28,10 +30,11 @@ def create_echo():
     echo.items.add(lv_func)
     echo.items.add(aortic_stenosis)
     
-def create_lab():
+def create_lab(user):
     lab = DataFormTemplate(
         title="Lab Results", 
-        description="Lab results from standard laboratory tests."
+        description="Lab results from standard laboratory tests.",
+        created_by= user
         )
     hb = NumericItem(
         name = "Hb",
@@ -56,10 +59,11 @@ def create_lab():
     lab.items.add(lac)
     lab.items.add(bili)
     
-def create_geri():
+def create_geri(user):
     geri = DataFormTemplate(
         title="Geriatric Scoring", 
-        description="Our standard geriatric scoring system for patients > 75 years of age."
+        description="Our standard geriatric scoring system for patients > 75 years of age.",
+        created_by= user
         )
     bath = BooleanItem(
         name = "Bathin",
@@ -85,7 +89,10 @@ def create_geri():
     geri.items.add(dress)
     
 def run():
-    create_echo()
-    create_lab()
-    create_geri()
+    user = User.objects.first()
+    print(type(user))
+
+    create_echo(user)
+    create_lab(user)
+    create_geri(user)
     

@@ -103,6 +103,21 @@ class DataFormDetailView(LoginRequiredMixin, DetailView):
     model = DataFormTemplate
     template_name = "frontend/dataform_detail.html"
     
+class PatientCreateView(LoginRequiredMixin, CreateView):
+    model = DataFormTemplate
+    template_name = "frontend/dataform_create.html"
+    fields = ["title", "description"]
+
+    # make custom form version to define required and non required fields
+    def get_form(self, form_class=None):
+        form = super(PatientCreateView, self).get_form(form_class)
+        form.fields['items'].required = False
+        return form
+    # over write the default validation function
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+    
 # class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 #     model = DataForm
 #     template_name = "frontend/dataform_create.html"

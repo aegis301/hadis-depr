@@ -57,8 +57,12 @@ class DateItem(Item):
 class DataFormTemplate(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(default=None)
-    items = models.ManyToManyField(Item)
-
+    items = models.ManyToManyField(Item, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING
+    )
     class Meta:
         ordering = ["title"]
 
