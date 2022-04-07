@@ -1,19 +1,19 @@
 {% extends "frontend/base.html" %} 
-{% load crispy_forms_tags %}
+
 {% block content %}
     <div class="container content-section mt-5 mw-50">
         <div class-="content-section">
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4 mt-3">New Patient</legend>
-                    {{ form|crispy }}
+                    <legend class="border-bottom mb-4 mt-3">Delete Data Form</legend>
+                    <h2>Are you sure you want to delete form {{ object.title }}?</h2>
                 </fieldset>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success mb-5 mt-2">Save</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'dataform-detail' object.id %}">Cancel</a>
                 </div>
             </form>
-            <a name="back-btn" id="back-btn" class="btn btn-outline-warning" href="{% url 'patient-list'%}" role="button">Cancel</a>
         </div>
     </div>
 {% endblock content %}

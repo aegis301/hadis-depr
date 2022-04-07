@@ -19,27 +19,45 @@ class PostgresDBPopulator():
         self.Session = sessionmaker(self.engine)
         
     def get_n_patients(self, n):
-        from DummyPatient import DummyPatient
+        # from .DummyPatient import DummyPatient
+        from api.models import Patient
+        from .populate_helpers import get_random_diagnosis, get_random_date
+        from django.contrib.auth.models import User
+        import random
+        import names
+        
         for i in range(n):
-            print('Patient Nr. {} created successfully!'.format(i+1))
-            self.patients.append(DummyPatient())
+            self.patients.append(Patient(
+                    gender = bool(random.getrandbits(1)),
+                    kis_id = random.randint(10000000, 99999999),
+                    last_name = names.get_last_name(),
+                    date_of_birth = get_random_date(),
+                    main_diagnosis = get_random_diagnosis(),
+                    created_by = User.objects.get(username='christian')
+            ))
+            if self.patients[i].gender:
+                self.patients[i].first_name = names.get_first_name(gender='male')
+            else:
+                self.patients[i].first_name = names.get_first_name(gender='female')
+            print(f"{i+1}th Patient created succesfully!")
             
     
     def patients_to_db(self):
         from sqlalchemy import Table, MetaData, insert
         from sqlalchemy.engine.base import Connection
         
-        conn: Connection
-        with self.engine.connect() as conn:
-            with conn.begin():
-                meta = MetaData(conn)
-                table = Table('api_patient', meta, autoload=True)
-                stmt = insert(table)
-                payload = [patient.__dict__ for patient in self.patients]
-                print('This is the payload:', payload)
-                result_proxy = conn.execute(stmt, payload)
-                print('Inserted {} rows.'.format(result_proxy.rowcount))
-             
+        # conn: Connection
+        # with self.engine.connect() as conn:
+        #     with conn.begin():
+        #         meta = MetaData(conn)
+        #         table = Table('api_patient', meta, autoload=True)
+        #         stmt = insert(table)
+        #         payload = [patient.__dict__ for patient in self.patients]
+        #         print('This is the payload:', payload)
+        #         result_proxy = conn.execute(stmt, payload)
+        #         print('Inserted {} rows.'.format(result_proxy.rowcount))
+        for patient in self.patients:
+            patient.save()
              
 class MongoDBPopulator():
     def __init__(self) -> None:

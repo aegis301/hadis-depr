@@ -1,0 +1,84 @@
+{% extends "frontend/base.html" %} {% block content %}
+<div class="container-fluid mt-3 content-section">
+	<h1>{{object.title}} Details</h1>
+
+	<div class="row align-items-start">
+		<small id="form-created-at" class="form-text text-muted display-block">
+			Created at: {{object.created_at}}
+		</small>
+		<small id="form-created-at" class="form-text text-muted display-block">
+			Created by: {{object.created_by}}
+		</small>
+		<div class="container">
+			<table class="table table-hover mt-3 content-section">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in object.items.all %}
+					<tr style="transform: rotate(0)">
+						<td>{{ item.name }}</td>
+						<td>{{ item.description }}</td>
+						<td>
+							<a
+								name="item-delete-btn"
+								id="item-delete-btn"
+								href="#"
+								role="button"
+								>Delete</a
+							>
+						</td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+      <a
+				name="item-add-btn"
+				id="item-add-btn"
+				class="btn btn-primary float-start mb-3"
+				href="{% url 'item-create' object.id%}"
+				role="button"
+				>Add Item</a
+			>
+		</div>
+	</div>
+	<div class="row">
+		<div class="button-box">
+			<a
+				name="back-btn"
+				id="back-btn"
+				class="btn btn-outline-info float-start"
+				href="{% url 'dataform-list'%}"
+				role="button"
+				>Back</a
+			>
+			<a
+				name="delete-btn"
+				id="edit-btn"
+				class="btn btn-danger float-end"
+				href="{% url 'dataform-delete' object.id%}"
+				role="button"
+				>Delete</a
+			>
+			
+			<a
+				name="edit-btn"
+				id="delete-btn"
+				class="btn btn-warning float-end"
+				href="{% url 'dataform-update' object.id%}"
+				role="button"
+				>Edit</a
+			>
+		
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

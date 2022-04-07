@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", views.home, name="hadis-home"),
-    path("forms/", views.forms, name="forms-show"),
+    ################################# Patients #################################
     path("patient/list/", views.PatientListView.as_view(), name="patient-list"),
     path(
         "patient/<int:pk>/",
@@ -23,6 +23,8 @@ urlpatterns = [
         views.PatientDeleteView.as_view(),
         name="patient-delete",
     ),
+    
+    ################################# Users #################################
     path("user_registration/", views.register_user, name="user-registration"),
     path(
         "user_login/",
@@ -36,4 +38,14 @@ urlpatterns = [
     ),
     path("user_profile/", views.user_profile, name="user-profile"),
     path("user_list/<str:username>/", views.UserPatientListView.as_view(), name="user-posts"),
+    
+    ################################# DataForms #################################
+    # path("forms/", views.forms, name="forms-show"),
+    path("dataform/list/", views.DataFormTemplateListView.as_view(), name="dataform-list"),
+    path("dataform/<int:pk>/detail", views.DataFormTemplateDetailView.as_view(), name="dataform-detail"),
+    path("dataform/<int:pk>/delete/", views.DataFormTemplateDeleteView.as_view(), name="dataform-delete"),
+    path("dataform/create/", views.DataFormTemplateCreateView.as_view(), name="dataform-create"),
+    path("dataform/<int:pk>/update", views.DataFormTemplateUpdateView.as_view(), name="dataform-update"),
+    ################################# Items #################################
+    path("dataform/<int:pk>/item/create", views.ItemCreateView.as_view(), name="item-create")
 ]
