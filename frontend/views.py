@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from api.models import Patient, DataForm, Item, NumericItem, TextItem
+from api.models import Patient, DataFormTemplate, Item, NumericItem, TextItem
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -97,10 +97,10 @@ class UserPatientListView(LoginRequiredMixin, ListView):
 ############################################################ DataForm and Item CRUD #####################################################    
 class DataFormListView(LoginRequiredMixin, ListView):
     template_name = "frontend/dataform_list.html"
-    model = DataForm
+    model = DataFormTemplate
     
 class DataFormDetailView(LoginRequiredMixin, DetailView):
-    model = DataForm
+    model = DataFormTemplate
     template_name = "frontend/dataform_detail.html"
     
 # class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -125,7 +125,7 @@ class DataFormDetailView(LoginRequiredMixin, DetailView):
 #         return False
     
 class DataFormDeleteView(LoginRequiredMixin, DeleteView):
-    model = DataForm
+    model = DataFormTemplate
     template_name = "frontend/dataform_confirm_delete.html"
     success_url = "/dataform/list/"
 ############################################################ USER Management ############################################################

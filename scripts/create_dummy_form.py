@@ -1,8 +1,8 @@
 from turtle import numinput, title
-from api.models import Item, NumericItem, TextItem, BooleanItem, DataForm
+from api.models import Item, NumericItem, TextItem, BooleanItem, DataFormTemplate
 
 def create_echo():
-    echo = DataForm(
+    echo = DataFormTemplate(
         title="Echocardiography", 
         description="Standard form for results of echocardiography in our outpatients clinic."
         )
@@ -29,7 +29,7 @@ def create_echo():
     echo.items.add(aortic_stenosis)
     
 def create_lab():
-    lab = DataForm(
+    lab = DataFormTemplate(
         title="Lab Results", 
         description="Lab results from standard laboratory tests."
         )
@@ -57,7 +57,7 @@ def create_lab():
     lab.items.add(bili)
     
 def create_geri():
-    geri = DataForm(
+    geri = DataFormTemplate(
         title="Geriatric Scoring", 
         description="Our standard geriatric scoring system for patients > 75 years of age."
         )
