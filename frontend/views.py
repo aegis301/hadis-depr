@@ -94,52 +94,49 @@ class UserPatientListView(LoginRequiredMixin, ListView):
     def get_query_set(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Patient.objects.filter(author=user).order_by('-created_at')
-############################################################ DataForm and Item CRUD #####################################################    
-class DataFormListView(LoginRequiredMixin, ListView):
+############################################################ DataFormTemplate CRUD #####################################################    
+class DataFormTemplateListView(LoginRequiredMixin, ListView):
     template_name = "frontend/dataform_list.html"
     model = DataFormTemplate
     
-class DataFormDetailView(LoginRequiredMixin, DetailView):
+class DataFormTemplateDetailView(LoginRequiredMixin, DetailView):
     model = DataFormTemplate
     template_name = "frontend/dataform_detail.html"
     
-class PatientCreateView(LoginRequiredMixin, CreateView):
+class DataFormTemplateCreateView(LoginRequiredMixin, CreateView):
     model = DataFormTemplate
     template_name = "frontend/dataform_create.html"
     fields = ["title", "description"]
 
     # make custom form version to define required and non required fields
     def get_form(self, form_class=None):
-        form = super(PatientCreateView, self).get_form(form_class)
-        form.fields['items'].required = False
+        form = super(DataFormTemplateCreateView, self).get_form(form_class)
         return form
+    
     # over write the default validation function
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
+class DataFormTemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = DataFormTemplate
+    template_name = "frontend/dataform_create.html"
+    fields = ["title", "description"]
     
-# class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = DataForm
-#     template_name = "frontend/dataform_create.html"
-#     fields = ["last_name", "first_name", "date_of_birth", "gender", "kis_id", "main_diagnosis"]
     
+    def get_form(self, form_class=None):
+        form = super(DataFormTemplateUpdateView, self).get_form(form_class)
+        return form
+    # over write the default validation function
+    def form_valid(self, form):
+        return super().form_valid(form)
+    # custom test for user permission (used for UserPassesTestMixin)
+    def test_func(self):
+        patient = self.get_object()
+        if self.request.user == patient.created_by:
+            return True
+        return False
     
-#     def get_form(self, form_class=None):
-#         form = super(PatientUpdateView, self).get_form(form_class)
-#         form.fields['main_diagnosis'].required = False
-#         return form
-#     # over write the default validation function
-#     def form_valid(self, form):
-#         form.instance.created_by = self.request.user
-#         return super().form_valid(form)
-#     # custom test for user permission (used for UserPassesTestMixin)
-#     def test_func(self):
-#         patient = self.get_object()
-#         if self.request.user == patient.created_by:
-#             return True
-#         return False
-    
-class DataFormDeleteView(LoginRequiredMixin, DeleteView):
+class DataFormTemplateDeleteView(LoginRequiredMixin, DeleteView):
     model = DataFormTemplate
     template_name = "frontend/dataform_confirm_delete.html"
     success_url = "/dataform/list/"

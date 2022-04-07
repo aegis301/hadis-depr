@@ -69,6 +69,10 @@ class DataFormTemplate(models.Model):
     def __str__(self) -> str:
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("dataform-detail", kwargs={"pk": self.pk})
+    
+    
 class Patient(models.Model):
     last_name = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)

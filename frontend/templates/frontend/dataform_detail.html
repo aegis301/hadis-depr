@@ -6,6 +6,9 @@
 		<small id="form-created-at" class="form-text text-muted display-block">
 			Created at: {{object.created_at}}
 		</small>
+		<small id="form-created-at" class="form-text text-muted display-block">
+			Created by: {{object.created_by}}
+		</small>
 		<div class="container">
 			<table class="table table-hover mt-3 content-section">
 				<thead>
@@ -64,7 +67,7 @@
 				role="button"
 				>Delete</a
 			>
-			{% comment %}
+			
 			<a
 				name="edit-btn"
 				id="delete-btn"
@@ -73,7 +76,7 @@
 				role="button"
 				>Edit</a
 			>
-			{% endcomment %}
+		
 		</div>
 	</div>
 </div>
