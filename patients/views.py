@@ -95,12 +95,3 @@ class PatientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-class UserPatientListView(LoginRequiredMixin, ListView):
-    model = Patient
-    template_name = "frontend/user_patient_list.html"  # <app>/<model>_<viewtype>.html
-    context_object_name = "patient"
-    paginate_by = 12
-
-    def get_query_set(self):
-        user = get_object_or_404(User, username=self.kwargs.get("username"))
-        return Patient.objects.filter(author=user).order_by("-created_at")

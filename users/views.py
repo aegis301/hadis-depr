@@ -1,10 +1,12 @@
-from pyexpat import model
-
 from django.contrib import messages
-from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView
+from patients.models import Patient
 
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import ProfileUpdateForm, UserRegistrationForm, UserUpdateForm
 
 
 # Create your views here.
@@ -48,3 +50,14 @@ def user_profile(request):
 
     context = {"u_update_form": u_update_form, "p_update_form": p_update_form}
     return render(request, "frontend/user_profile.html", context)
+
+
+class UserPatientListView(LoginRequiredMixin, ListView):
+    model = Patient
+    template_name = "frontend/user_patient_list.html"  # <app>/<model>_<viewtype>.html
+    context_object_name = "patient"
+    paginate_by = 12
+
+    def get_query_set(self):
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Patient.objects.filter(author=user).order_by("-created_at")
