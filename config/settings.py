@@ -39,8 +39,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'api.apps.ApiConfig',
-    'frontend.apps.FrontendConfig',
+    'patients.apps.PatientsConfig',
+    'dataforms.apps.DataformsConfig',
+    'users.apps.UsersConfig',
     'crispy_forms',
     'django_extensions',
     'django.contrib.admin',
