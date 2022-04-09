@@ -27,7 +27,7 @@ def register_user(request):
     else:
         # else its a get request, so just create an empty form
         form = UserRegistrationForm()
-    return render(request, "frontend/user_registration.html", {"form": form})
+    return render(request, "users/user_registration.html", {"form": form})
 
 
 @login_required
@@ -49,12 +49,12 @@ def user_profile(request):
         p_update_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {"u_update_form": u_update_form, "p_update_form": p_update_form}
-    return render(request, "frontend/user_profile.html", context)
+    return render(request, "users/user_profile.html", context)
 
 
 class UserPatientListView(LoginRequiredMixin, ListView):
     model = Patient
-    template_name = "frontend/user_patient_list.html"  # <app>/<model>_<viewtype>.html
+    template_name = "users/user_patient_list.html"  # <app>/<model>_<viewtype>.html
     context_object_name = "patient"
     paginate_by = 12
 

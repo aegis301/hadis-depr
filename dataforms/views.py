@@ -8,23 +8,23 @@ from django.views.generic import (
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import DataFormTemplate, Item, NumericItem, TextItem
+from .models import DataFormTemplate, Item
 
 
 ############################################################ DataFormTemplate CRUD #####################################################
 class DataFormTemplateListView(LoginRequiredMixin, ListView):
-    template_name = "frontend/dataform_list.html"
+    template_name = "dataforms/dataform_list.html"
     model = DataFormTemplate
 
 
 class DataFormTemplateDetailView(LoginRequiredMixin, DetailView):
     model = DataFormTemplate
-    template_name = "frontend/dataform_detail.html"
+    template_name = "dataforms/dataform_detail.html"
 
 
 class DataFormTemplateCreateView(LoginRequiredMixin, CreateView):
     model = DataFormTemplate
-    template_name = "frontend/dataform_create.html"
+    template_name = "dataforms/dataform_create.html"
     fields = ["title", "description"]
 
     # make custom form version to define required and non required fields
@@ -40,7 +40,7 @@ class DataFormTemplateCreateView(LoginRequiredMixin, CreateView):
 
 class DataFormTemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = DataFormTemplate
-    template_name = "frontend/dataform_create.html"
+    template_name = "dataforms/dataform_create.html"
     fields = ["title", "description"]
 
     def get_form(self, form_class=None):
@@ -61,14 +61,14 @@ class DataFormTemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, Update
 
 class DataFormTemplateDeleteView(LoginRequiredMixin, DeleteView):
     model = DataFormTemplate
-    template_name = "frontend/dataform_confirm_delete.html"
+    template_name = "dataforms/dataform_confirm_delete.html"
     success_url = "/dataform/list/"
 
 
 ############################################################ DataFormTemplate CRUD #####################################################
 class ItemCreateView(LoginRequiredMixin, CreateView):
     model = Item
-    template_name = "frontend/item_create.html"
+    template_name = "dataforms/item_create.html"
     fields = ["name", "description", "type"]
     # make custom form version to define required and non required fields
     def get_form(self, form_class=None):

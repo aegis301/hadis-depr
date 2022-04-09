@@ -1,5 +1,3 @@
-from pyexpat import model
-from django.shortcuts import get_object_or_404
 from django.views.generic import (
     ListView,
     DetailView,
@@ -8,17 +6,16 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
 from patients.models import Patient
 
 
 ############################################################ Patient CRUD #####################################################
 
 
-class PatientListView(LoginRequiredMixin, ListView):
+class PatientListView(ListView):
     # automatically hands all retrieved objects down to the template as object_list
     model = Patient
-    template_name = "frontend/patient_list.html"  # <app>/<model>_<viewtype>.html
+    template_name = "patients/patient_list.html"  # <app>/<model>_<viewtype>.html
     # context_object_name = 'patient'
     ordering = ["-created_at"]
     paginate_by = 12
@@ -26,12 +23,12 @@ class PatientListView(LoginRequiredMixin, ListView):
 
 class PatientDetailView(LoginRequiredMixin, DetailView):
     model = Patient
-    template_name = "frontend/patient_detail.html"
+    template_name = "patients/patient_detail.html"
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):
     model = Patient
-    template_name = "frontend/patient_create.html"
+    template_name = "patients/patient_create.html"
     fields = [
         "last_name",
         "first_name",
@@ -55,7 +52,7 @@ class PatientCreateView(LoginRequiredMixin, CreateView):
 
 class PatientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Patient
-    template_name = "frontend/patient_create.html"
+    template_name = "patients/patient_create.html"
     fields = [
         "last_name",
         "first_name",
@@ -85,7 +82,7 @@ class PatientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PatientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Patient
-    template_name = "frontend/patient_confirm_delete.html"
+    template_name = "patients/patient_confirm_delete.html"
     success_url = "/patient/list/"
 
     def test_func(self):
