@@ -24,8 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
     path('patient/', include('patients.urls')),
-    path('dataforms/', include('dataforms.urls')),
-    path('users', include('users.urls'))
+    path('dataform/', include('dataforms.urls')),
+    path('users/', include('users.urls'))
 ] 
 
 if settings.DEBUG:
