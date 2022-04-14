@@ -1,5 +1,4 @@
-from scripts.DBPopulator.DummyPatient import MongoDummyPatient
-from api.models import Patient
+from patients.models import Patient
 
 class PostgresDBPopulator():
     def __init__(self) -> None:
@@ -20,7 +19,7 @@ class PostgresDBPopulator():
         
     def get_n_patients(self, n):
         # from .DummyPatient import DummyPatient
-        from api.models import Patient
+        from patients.models import Patient
         from .populate_helpers import get_random_diagnosis, get_random_date
         from django.contrib.auth.models import User
         import random
@@ -43,8 +42,8 @@ class PostgresDBPopulator():
             
     
     def patients_to_db(self):
-        from sqlalchemy import Table, MetaData, insert
-        from sqlalchemy.engine.base import Connection
+        # from sqlalchemy import Table, MetaData, insert
+        # from sqlalchemy.engine.base import Connection
         
         # conn: Connection
         # with self.engine.connect() as conn:

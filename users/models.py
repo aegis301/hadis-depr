@@ -1,10 +1,5 @@
-from email.policy import default
-from tkinter import NUMERIC
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-from django.urls import reverse
-from model_utils.managers import InheritanceManager # improve querying in inheritance models
 from PIL import Image
 
 
@@ -16,7 +11,7 @@ class Profile(models.Model):
         return f"{self.user.username} Profile"
 
     def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+        super().save()
 
         # get image path and open it
         img = Image.open(self.image.path)

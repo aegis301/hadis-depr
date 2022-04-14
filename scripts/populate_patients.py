@@ -1,5 +1,4 @@
-from .DBPopulator.Populator import MongoDBPopulator, PostgresDBPopulator
-from api.models import Patient
+from .DBPopulator.Populator import PostgresDBPopulator
 # if mongo is selected use mongo populator
 
 # check installed_apps for the same reason

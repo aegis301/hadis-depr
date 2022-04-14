@@ -12,7 +12,7 @@ from patients.models import Patient
 ############################################################ Patient CRUD #####################################################
 
 
-class PatientListView(ListView):
+class PatientListView(LoginRequiredMixin, ListView):
     # automatically hands all retrieved objects down to the template as object_list
     model = Patient
     template_name = "patients/patient_list.html"  # <app>/<model>_<viewtype>.html
@@ -50,7 +50,7 @@ class PatientCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PatientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PatientUpdateView(LoginRequiredMixin, UpdateView):
     model = Patient
     template_name = "patients/patient_create.html"
     fields = [
@@ -73,22 +73,16 @@ class PatientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)
 
     # custom test for user permission (used for UserPassesTestMixin)
-    def test_func(self):
-        patient = self.get_object()
-        if self.request.user == patient.created_by:
-            return True
-        return False
+    # def test_func(self):
+    #     patient = self.get_object()
+    #     if self.request.user == patient.created_by:
+    #         return True
+    #     return False
 
 
-class PatientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PatientDeleteView(LoginRequiredMixin, DeleteView):
     model = Patient
     template_name = "patients/patient_confirm_delete.html"
     success_url = "/patient/list/"
-
-    def test_func(self):
-        patient = self.get_object()
-        if self.request.user == patient.created_by:
-            return True
-        return False
 
 
