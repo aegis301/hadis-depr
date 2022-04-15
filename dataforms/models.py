@@ -29,29 +29,30 @@ class Item(models.Model):
     type = models.TextField(
         choices=ITEM_TYPE_CHOICES
     )
+    value = models.JSONField()
     def get_absolute_url(self):
         return reverse("dataform-detail", kwargs={"pk": self.pk})
 
-class NumericItem(Item):
-    value = models.FloatField(blank=True, null=True)
-    type = "NUM"
-    def __str__(self) -> str:
-        return self.name
-class TextItem(Item):
-    value = models.TextField(blank=True, default="")
-    type = "TEXT"
-    def __str__(self) -> str:
-        return self.name
-class BooleanItem(Item):
-    value = models.BooleanField(blank=True, null=True)
-    type = "BOOL"
-    def __str__(self) -> str:
-        return self.name
-class DateItem(Item):
-    value = models.DateTimeField(blank=True, null=True)
-    type = "DATE"
-    def __str__(self) -> str:
-        return self.name
+# class NumericItem(Item):
+#     value = models.FloatField(blank=True, null=True)
+#     type = "NUM"
+#     def __str__(self) -> str:
+#         return self.name
+# class TextItem(Item):
+#     value = models.TextField(blank=True, default="")
+#     type = "TEXT"
+#     def __str__(self) -> str:
+#         return self.name
+# class BooleanItem(Item):
+#     value = models.BooleanField(blank=True, null=True)
+#     type = "BOOL"
+#     def __str__(self) -> str:
+#         return self.name
+# class DateItem(Item):
+#     value = models.DateTimeField(blank=True, null=True)
+#     type = "DATE"
+#     def __str__(self) -> str:
+#         return self.name
     
 ### categorical items
 ### range items
