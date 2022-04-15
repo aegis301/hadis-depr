@@ -1,5 +1,5 @@
 def run():
-    from api.models import Item, NumericItem, TextItem, DataFormTemplate
+    from dataforms.models import Item, NumericItem, TextItem, DataFormTemplate
     
     models = [Item, NumericItem, TextItem, DataFormTemplate]
     

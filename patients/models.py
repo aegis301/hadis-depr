@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from model_utils.managers import InheritanceManager # improve querying in inheritance models
 from PIL import Image
-from dataforms.models import DataFormTemplate
+# from dataforms.models import DataFormTemplate
 
 # Create your models here.
 
@@ -24,7 +24,7 @@ class Patient(models.Model):
         # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
-    dataforms = models.ManyToManyField(DataFormTemplate)
+    dataforms = models.ManyToManyField("dataforms.DataFormTemplate")
 
     def __str__(self):
         return self.first_name + " " + self.last_name

@@ -6,32 +6,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from model_utils.managers import InheritanceManager # improve querying in inheritance models
+# from patients.models import Patient
 from PIL import Image
 # Create your models here.
-
-
-class Item(models.Model):
-    NUMERIC = "NUM"
-    TEXT = "TEXT"
-    BOOLEAN = "BOOL"
-    DATE = "DATE"
-    
-    objects = InheritanceManager()
-
-    name = models.CharField(max_length=200)
-    description = models.TextField(default=None)
-    ITEM_TYPE_CHOICES = (
-        (NUMERIC, "Numeric value"), 
-        (TEXT, "Text or Characters"),
-        (BOOLEAN, "Yes or No"),
-        (DATE, "Date and Time")
-        )
-    type = models.TextField(
-        choices=ITEM_TYPE_CHOICES
-    )
-    value = models.JSONField()
-    def get_absolute_url(self):
-        return reverse("dataform-detail", kwargs={"pk": self.pk})
 
 # class NumericItem(Item):
 #     value = models.FloatField(blank=True, null=True)
@@ -62,7 +39,6 @@ class DataFormTemplate(models.Model):
     ### establish a many to many relationship with the Patients!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     title = models.CharField(max_length=200)
     description = models.TextField(default=None)
-    items = models.ManyToManyField(Item, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(
         User,
@@ -77,3 +53,30 @@ class DataFormTemplate(models.Model):
     def get_absolute_url(self):
         return reverse("dataform-detail", kwargs={"pk": self.pk})
     
+class Item(models.Model):
+    NUMERIC = "NUM"
+    TEXT = "TEXT"
+    BOOLEAN = "BOOL"
+    DATE = "DATE"
+    
+    objects = InheritanceManager()
+
+    name = models.CharField(max_length=200)
+    description = models.TextField(default=None)
+    
+    dataform = models.ForeignKey(DataFormTemplate, on_delete=models.CASCADE)
+    patients = models.ManyToManyField("patients.Patient")
+    
+    ITEM_TYPE_CHOICES = (
+        (NUMERIC, "Numeric value"), 
+        (TEXT, "Text or Characters"),
+        (BOOLEAN, "Yes or No"),
+        (DATE, "Date and Time")
+        )
+    type = models.TextField(
+        choices=ITEM_TYPE_CHOICES
+    )
+    value = models.JSONField()
+    
+    def get_absolute_url(self):
+        return reverse("dataform-detail", kwargs={"pk": self.pk})
