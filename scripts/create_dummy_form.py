@@ -1,9 +1,9 @@
 from turtle import numinput, title
-from dataforms.models import Item, NumericItem, TextItem, BooleanItem, DataFormTemplate
+from DataForms.models import Item, NumericItem, TextItem, BooleanItem, DataForm
 from django.contrib.auth.models import User
 
 def create_echo(user):
-    echo = DataFormTemplate(
+    echo = DataForm(
         title="Echocardiography", 
         description="Standard form for results of echocardiography in our outpatients clinic.",
         created_by= user
@@ -31,7 +31,7 @@ def create_echo(user):
     echo.items.add(aortic_stenosis)
     
 def create_lab(user):
-    lab = DataFormTemplate(
+    lab = DataForm(
         title="Lab Results", 
         description="Lab results from standard laboratory tests.",
         created_by= user
@@ -60,7 +60,7 @@ def create_lab(user):
     lab.items.add(bili)
     
 def create_geri(user):
-    geri = DataFormTemplate(
+    geri = DataForm(
         title="Geriatric Scoring", 
         description="Our standard geriatric scoring system for patients > 75 years of age.",
         created_by= user

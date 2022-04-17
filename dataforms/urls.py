@@ -7,26 +7,26 @@ urlpatterns = [
     ################################# DataForms #################################
     # path("forms/", views.forms, name="forms-show"),
     path(
-        "list/", views.DataFormTemplateListView.as_view(), name="dataform-list"
+        "list/", views.DataFormListView.as_view(), name="dataform-list"
     ),
     path(
         "<int:pk>/detail",
-        views.DataFormTemplateDetailView.as_view(),
+        views.DataFormDetailView.as_view(),
         name="dataform-detail",
     ),
     path(
         "<int:pk>/delete/",
-        views.DataFormTemplateDeleteView.as_view(),
+        views.DataFormDeleteView.as_view(),
         name="dataform-delete",
     ),
     path(
         "create/",
-        views.DataFormTemplateCreateView.as_view(),
+        views.DataFormCreateView.as_view(),
         name="dataform-create",
     ),
     path(
         "<int:pk>/update",
-        views.DataFormTemplateUpdateView.as_view(),
+        views.DataFormUpdateView.as_view(),
         name="dataform-update",
     ),
     ################################# Items #################################

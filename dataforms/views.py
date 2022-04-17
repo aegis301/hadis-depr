@@ -8,28 +8,30 @@ from django.views.generic import (
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import DataFormTemplate, Item
+from .models import DataForm
+from items.models import Item
 
 
-############################################################ DataFormTemplate CRUD #####################################################
-class DataFormTemplateListView(LoginRequiredMixin, ListView):
+
+############################################################ DataForm CRUD #####################################################
+class DataFormListView(LoginRequiredMixin, ListView):
     template_name = "dataforms/dataform_list.html"
-    model = DataFormTemplate
+    model = DataForm
 
 
-class DataFormTemplateDetailView(LoginRequiredMixin, DetailView):
-    model = DataFormTemplate
+class DataFormDetailView(LoginRequiredMixin, DetailView):
+    model = DataForm
     template_name = "dataforms/dataform_detail.html"
 
 
-class DataFormTemplateCreateView(LoginRequiredMixin, CreateView):
-    model = DataFormTemplate
+class DataFormCreateView(LoginRequiredMixin, CreateView):
+    model = DataForm
     template_name = "dataforms/dataform_create.html"
     fields = ["title", "description"]
 
     # make custom form version to define required and non required fields
     def get_form(self, form_class=None):
-        form = super(DataFormTemplateCreateView, self).get_form(form_class)
+        form = super(DataFormCreateView, self).get_form(form_class)
         return form
 
     # over write the default validation function
@@ -38,13 +40,13 @@ class DataFormTemplateCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DataFormTemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = DataFormTemplate
+class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = DataForm
     template_name = "dataforms/dataform_create.html"
     fields = ["title", "description"]
 
     def get_form(self, form_class=None):
-        form = super(DataFormTemplateUpdateView, self).get_form(form_class)
+        form = super(DataFormUpdateView, self).get_form(form_class)
         return form
 
     # over write the default validation function
@@ -59,13 +61,13 @@ class DataFormTemplateUpdateView(LoginRequiredMixin, UserPassesTestMixin, Update
         return False
 
 
-class DataFormTemplateDeleteView(LoginRequiredMixin, DeleteView):
-    model = DataFormTemplate
+class DataFormDeleteView(LoginRequiredMixin, DeleteView):
+    model = DataForm
     template_name = "dataforms/dataform_confirm_delete.html"
     success_url = "/dataform/list/"
 
 
-############################################################ DataFormTemplate CRUD #####################################################
+############################################################ DataForm CRUD #####################################################
 class ItemCreateView(LoginRequiredMixin, CreateView):
     model = Item
     template_name = "dataforms/item_create.html"

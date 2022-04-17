@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import DataFormTemplate
+from .models import DataForm
 # Register your models here.
-admin.site.register(DataFormTemplate)
+admin.site.register(DataForm)

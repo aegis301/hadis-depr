@@ -4,10 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from model_utils.managers import InheritanceManager # improve querying in inheritance models
-from PIL import Image
-# from dataforms.models import DataFormTemplate
-
+from dataforms.models import DataForm
 # Create your models here.
 
     
@@ -24,7 +21,7 @@ class Patient(models.Model):
         # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
-    dataforms = models.ManyToManyField("dataforms.DataFormTemplate")
+    dataforms = models.ForeignKey(DataForm, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name

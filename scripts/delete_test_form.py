@@ -1,7 +1,7 @@
 def run():
-    from dataforms.models import Item, NumericItem, TextItem, DataFormTemplate
+    from DataForms.models import Item, NumericItem, TextItem, DataForm
     
-    models = [Item, NumericItem, TextItem, DataFormTemplate]
+    models = [Item, NumericItem, TextItem, DataForm]
     
     for model in models:
         model.objects.all().delete()

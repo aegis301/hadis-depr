@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'patients.apps.PatientsConfig',
     'dataforms.apps.DataformsConfig',
+    'items.apps.ItemsConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'django_extensions',
