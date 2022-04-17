@@ -1,4 +1,3 @@
-from unicodedata import name
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
@@ -30,9 +29,5 @@ urlpatterns = [
         name="dataform-update",
     ),
     ################################# Items #################################
-    path(
-        "<int:pk>/item/create",
-        views.ItemCreateView.as_view(),
-        name="item-create",
-    ),
+    
 ]
