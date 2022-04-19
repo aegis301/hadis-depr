@@ -18,7 +18,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for item in object.items.all %}
+					{% for item in object.item_set.all %}
 					<tr style="transform: rotate(0)">
 						<td>{{ item.name }}</td>
 						<td>{{ item.description }}</td>
