@@ -18,7 +18,7 @@ class Item(models.Model):
     description = models.TextField(default=None)
     created_at = models.DateTimeField(default=timezone.now)
     
-    dataforms = models.ForeignKey(DataForm, on_delete=models.CASCADE)
+    dataform = models.ForeignKey(DataForm, on_delete=models.CASCADE)
     patients = models.ManyToManyField(Patient)
     
     ITEM_TYPE_CHOICES = (

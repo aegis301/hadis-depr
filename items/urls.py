@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "<int:pk>/item/create",
+        "dataform/<int:pk>/detail/item/create",
         views.ItemCreateView.as_view(),
         name="item-create",
     )
