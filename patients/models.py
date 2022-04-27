@@ -1,5 +1,3 @@
-from email.policy import default
-from tkinter import NUMERIC
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
