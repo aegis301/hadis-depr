@@ -28,3 +28,9 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self) -> str:
         return reverse("dataform-detail", args=[self.object.dataform_id])
+class ItemDeleteView(LoginRequiredMixin, DeleteView):
+    model = Item
+    template_name = "items/item_confirm_delete.html"
+
+    def get_success_url(self) -> str:
+        return reverse("dataform-detail", args=[self.object.dataform_id])
