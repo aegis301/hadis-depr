@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'items.apps.ItemsConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'rest_framework',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',

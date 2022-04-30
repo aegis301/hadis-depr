@@ -6,14 +6,14 @@
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4 mt-3">New Item</legend>
+                    <legend class="border-bottom mb-4 mt-3">New Visit</legend>
                     {{ form|crispy }}
                 </fieldset>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success mb-5 mt-2">Save</button>
                 </div>
             </form>
-            {% comment %} <a name="back-btn" id="back-btn" class="btn btn-outline-warning" href="{% url 'dataform-detail' %}" role="button">Cancel</a> {% endcomment %}
+            {% comment %} <a name="back-btn" id="back-btn" class="btn btn-outline-warning" href="{% url 'patient-detail'%}" role="button">Cancel</a> {% endcomment %}
         </div>
     </div>
 {% endblock content %}

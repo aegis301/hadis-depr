@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.views.generic import (
     ListView,
     DetailView,
@@ -5,9 +6,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from patients.models import Patient
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from patients.models import Patient, Visit
+from django.urls import reverse
 
 ############################################################ Patient CRUD #####################################################
 
@@ -24,6 +25,11 @@ class PatientListView(LoginRequiredMixin, ListView):
 class PatientDetailView(LoginRequiredMixin, DetailView):
     model = Patient
     template_name = "patients/patient_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['visit_list'] = Visit.objects.filter(patient_id=self.kwargs['pk'])
+        return context
 
 
 class PatientCreateView(LoginRequiredMixin, CreateView):
@@ -84,5 +90,35 @@ class PatientDeleteView(LoginRequiredMixin, DeleteView):
     model = Patient
     template_name = "patients/patient_confirm_delete.html"
     success_url = "/patient/list/"
+    
+####################################################################### Visits
 
+class VisitCreateView(LoginRequiredMixin, CreateView):
+    model = Visit
+    template_name = "patients/visit_create.html"
+    fields = [
+        "patient",
+        "visit_date",
+        "patient_in_hospital"
+    ]
+
+    # make custom form version to define required and non required fields
+    def get_form(self, form_class=None):
+        form = super(VisitCreateView, self).get_form(form_class)
+        # form.fields["visit_date"].required = True
+        return form
+
+    # over write the default validation function
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse("patient-detail", args=[self.object.patient_id])
+class VisitDeleteView(LoginRequiredMixin, DeleteView):
+    model = Visit
+    template_name = "patients/visit_confirm_delete.html"
+    
+    def get_success_url(self) -> str:
+        return reverse("patient-detail", args=[self.object.patient_id])
 

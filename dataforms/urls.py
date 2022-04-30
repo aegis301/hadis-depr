@@ -6,7 +6,7 @@ urlpatterns = [
     ################################# DataForms #################################
     # path("forms/", views.forms, name="forms-show"),
     path(
-        "list/", views.DataFormListView.as_view(), name="dataform-list"
+        "", views.DataFormListView.as_view(), name="dataform-list"
     ),
     path(
         "<int:pk>/detail",

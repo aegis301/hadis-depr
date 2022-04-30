@@ -21,11 +21,21 @@ class Patient(models.Model):
         # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
-    dataforms = models.ForeignKey(DataForm, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
 
-    # how to redirect after create (reverse returs string representation of the full path, not actually redirect)
+    # how to redirect after create (reverse returns string representation of the full path, not actually redirect)
     def get_absolute_url(self):
         return reverse("patient-detail", kwargs={"pk": self.pk})
+    
+class Visit(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    visit_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,  # don't delete patients if a user is deleted
+        # default=User.objects.filter(username='christian')
+    )
+    patient_in_hospital = models.BooleanField(default=True)
+    

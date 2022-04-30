@@ -56,7 +56,7 @@ class DataFormUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     # custom test for user permission (used for UserPassesTestMixin)
     def test_func(self):
         patient = self.get_object()
-        if self.request.user == patient.created_by:
+        if self.request.user:
             return True
         return False
 

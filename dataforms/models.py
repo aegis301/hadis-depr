@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-# from patients.models import Patient
 # Create your models here.
 
 class DataForm(models.Model):
@@ -18,6 +17,7 @@ class DataForm(models.Model):
         User,
         on_delete=models.DO_NOTHING
     )
+    visits = models.ManyToManyField(to="patients.Visit")
     class Meta:
         ordering = ["title"]
 
