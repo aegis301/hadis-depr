@@ -1,10 +1,9 @@
 from django.db import models
-from email.policy import default
-from tkinter import NUMERIC
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+
 # Create your models here.
 
 class DataForm(models.Model):
@@ -17,7 +16,9 @@ class DataForm(models.Model):
         User,
         on_delete=models.DO_NOTHING
     )
-    visits = models.ManyToManyField(to="patients.Visit")
+    
+    numeric_items = models.ManyToManyField(to='items.NumericItem')
+    text_items = models.ManyToManyField(to='items.TextItem')
     class Meta:
         ordering = ["title"]
 

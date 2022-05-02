@@ -4,9 +4,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from dataforms.models import DataForm
-# Create your models here.
-
     
 class Patient(models.Model):
     last_name = models.CharField(max_length=200)
@@ -21,7 +18,7 @@ class Patient(models.Model):
         # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
-
+    
     def __str__(self):
         return self.first_name + " " + self.last_name
 
@@ -38,4 +35,4 @@ class Visit(models.Model):
         # default=User.objects.filter(username='christian')
     )
     patient_in_hospital = models.BooleanField(default=True)
-    
+    dataforms = models.ManyToManyField(to='dataforms.DataForm')
