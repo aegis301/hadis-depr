@@ -1,8 +1,9 @@
+from turtle import Turtle
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from model_utils.managers import InheritanceManager # improve querying in inheritance models
-from dataforms.models import DataForm
+
 
 # Create your models here.
 class Item(models.Model):
@@ -14,6 +15,7 @@ class Item(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(default=None)
     created_at = models.DateTimeField(default=timezone.now)
+    recorded_at = models.DateTimeField(blank=True, null=True)
   
     ITEM_TYPE_CHOICES = (
         (NUMERIC, "Numeric value"), 
