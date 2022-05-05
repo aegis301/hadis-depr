@@ -7,9 +7,9 @@ from django.views.generic import (
 )
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from items.models import Item, NumericItem, TextItem
 from .models import DataForm
-
+from itertools import chain
 
 
 
@@ -22,6 +22,17 @@ class DataFormListView(LoginRequiredMixin, ListView):
 class DataFormDetailView(LoginRequiredMixin, DetailView):
     model = DataForm
     template_name = "dataforms/dataform_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # get list of all items and combine them
+        numeric_items = NumericItem.objects.filter(dataforms=self.kwargs['pk'])
+        text_items = TextItem.objects.filter(dataforms=self.kwargs['pk'])
+        item_list = list(chain(numeric_items, text_items))
+        
+        context['item_list'] = Item.objects.filter(dataforms=self.kwargs['pk'])
+        return context
 
 
 class DataFormCreateView(LoginRequiredMixin, CreateView):

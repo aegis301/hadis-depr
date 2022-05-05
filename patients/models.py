@@ -35,6 +35,3 @@ class Visit(models.Model):
         # default=User.objects.filter(username='christian')
     )
     patient_in_hospital = models.BooleanField(default=True)
-    
-    numeric_items = models.ManyToManyField(to='items.NumericItem')
-    text_items = models.ManyToManyField(to='items.TextItem')

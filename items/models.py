@@ -12,10 +12,13 @@ class Item(models.Model):
     
     objects = InheritanceManager()
 
-    name = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
     description = models.TextField(default=None)
     created_at = models.DateTimeField(default=timezone.now)
     recorded_at = models.DateTimeField(blank=True, null=True)
+    
+    dataforms = models.ManyToManyField(to="dataforms.DataForm", blank=True)
+    visits = models.ManyToManyField(to="patients.Visit", blank=True)
   
     ITEM_TYPE_CHOICES = (
         (NUMERIC, "Numeric value"), 
@@ -28,12 +31,12 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse("dataform-detail", kwargs={"pk": self.pk})
     
-class NumericItem(models.Model):
+class NumericItem(Item):
     value = models.FloatField(blank=True, null=True)
     type = "NUM"
     def __str__(self) -> str:
         return self.name    
-class TextItem(models.Model):
+class TextItem(Item):
     value = models.TextField(blank=True, default="")
     type = "TEXT"
     def __str__(self) -> str:

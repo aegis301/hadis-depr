@@ -14,7 +14,7 @@ from .models import Item
 class ItemCreateView(LoginRequiredMixin, CreateView):
     model = Item
     template_name = "items/item_create.html"
-    fields = ["name", "description", "type", "dataform"]
+    fields = ["title", "description", "type", "dataforms"]
     # make custom form version to define required and non required fields
     def get_form(self, form_class=None):
         form = super(ItemCreateView, self).get_form(form_class)
