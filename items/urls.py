@@ -5,12 +5,12 @@ from . import views
 urlpatterns = [
     path(
         "dataform/<int:pk>/detail/item/create",
-        views.ItemCreateView.as_view(),
+        views.ItemCreateView,
         name="item-create",
     ),
     path(
         "dataform/<int:pk>/detail/item/delete",
-        views.ItemDeleteView.as_view(),
+        views.ItemDeleteView,
         name="item-delete",
     )
 ]
