@@ -24,9 +24,16 @@
 						<td>{{ item.description }}</td>
 						<td>
 							<a
+								name="item-update-btn"
+								id="item-update-btn"
+								href="{% url 'item-update' pk_df=object.id pk_item=item.id%}"
+								role="button"
+								>Edit</a
+							>
+							<a
 								name="item-delete-btn"
 								id="item-delete-btn"
-								href="{% url 'item-delete' item.id%}"
+								href="{% url 'item-delete' pk_df=object.id pk_item=item.id%}"
 								role="button"
 								>Delete</a
 							>

@@ -1,49 +1,49 @@
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
-
-from .models import Item
+from django.shortcuts import render, redirect
 from .forms import ItemForm
-# # Create your views here.
-# class ItemCreateView(LoginRequiredMixin, CreateView):
-#     model = Item
-#     template_name = "items/item_create.html"
-#     fields = ["title", "description", "type", "dataforms"]
-#     # make custom form version to define required and non required fields
-#     def get_form(self, form_class=None):
-#         form = super(ItemCreateView, self).get_form(form_class)
-#         # form.fields['main_diagnosis'].required = False
-#         return form
+from .models import Item
+from dataforms.models import DataForm
 
-#     # over write the default validation function
-#     def form_valid(self, form):
-#         form.instance.created_by = self.request.user
-#         return super().form_valid(form)
-    
-#     def get_success_url(self) -> str:
-#         return reverse("dataform-detail", args=[self.object.dataform_id])
-# class ItemDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Item
-#     template_name = "items/item_confirm_delete.html"
-
-#     def get_success_url(self) -> str:
-#         return reverse("dataform-detail", args=[self.object.dataform_id])
 
 def ItemCreateView(request, *args, **kwargs):
     form = ItemForm()
-    context = {'form': form}
+    
     
     if request.method == 'POST':
-        pass
-    
+        # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # safe the dataform id
+            if type(request.POST['dataforms']) is list:
+                df_id = request.POST['dataforms'][0]
+            else:
+                df_id = request.POST['dataforms']
+                
+            redirect('dataform-detail', pk=df_id)
+    context = {'form': form}
     return render(request, "items/item_create.html", context)
+
+
+def ItemUpdateView(request, pk_item, *args, **kwargs):
+    
+    item = Item.objects.get(id=pk_item)
+    form = ItemForm(instance=item)
+    
+    if request.method == 'POST':
+        # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            # safe the dataform id
+            if type(request.POST['dataforms']) is list:
+                df_id = request.POST['dataforms'][0]
+            else:
+                df_id = request.POST['dataforms']
+                
+            redirect('dataform-detail', pk=df_id)
+    context = {'form': form}
+    return render(request, "items/item_create.html", context)
+
 
 def ItemDeleteView(request, *args, **kwargs):
     

@@ -4,13 +4,18 @@ from . import views
 
 urlpatterns = [
     path(
-        "dataform/<int:pk>/detail/item/create",
+        "dataform/<int:pk_df>/detail/item/create",
         views.ItemCreateView,
-        name="item-create",
+        name="item-create"
     ),
     path(
-        "dataform/<int:pk>/detail/item/delete",
+        "dataform/<int:pk_df>/detail/item/<int:pk_item>/delete",
         views.ItemDeleteView,
-        name="item-delete",
+        name="item-delete"
+    ),
+    path(
+        "dataform/<int:pk_df>/detail/item/<int:pk_item>/update",
+        views.ItemUpdateView,
+        name="item-update"
     )
 ]
