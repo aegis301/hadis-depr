@@ -11,7 +11,7 @@
                 </fieldset>
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger">Delete</button>
-                    <a class="btn btn-outline-secondary" href="{% url 'dataform-detail' object.dataform_id %}">Cancel</a>
+                    {% comment %} <a class="btn btn-outline-secondary" href="{% url 'dataform-detail' object.dataform_id %}">Cancel</a> {% endcomment %}
                 </div>
             </form>
         </div>

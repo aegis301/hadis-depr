@@ -21,7 +21,6 @@ def ItemCreateView(request, pk_df, *args, **kwargs):
 
 
 def ItemUpdateView(request, pk_item, pk_df, *args, **kwargs):
-    
     item = Item.objects.get(id=pk_item)
     form = ItemForm(instance=item)
     
@@ -38,8 +37,12 @@ def ItemUpdateView(request, pk_item, pk_df, *args, **kwargs):
     return render(request, "items/item_create.html", context)
 
 
-def ItemDeleteView(request, pk_item, *args, **kwargs):
-    
-    context = {}
+def ItemDeleteView(request, pk_item, pk_df, *args, **kwargs):
+    item = Item.objects.get(id=pk_item)
+    if request.method == 'POST':
+        df = DataForm.objects.filter(id=pk_df).first()
+        item.delete()
+        return redirect(df)
+    context = {'object': item}
     
     return render(request, "items/item_confirm_delete.html", context)
