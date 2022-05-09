@@ -4,7 +4,7 @@ from .models import Item
 from dataforms.models import DataForm
 
 
-def ItemCreateView(request, *args, **kwargs):
+def ItemCreateView(request, pk_df, *args, **kwargs):
     form = ItemForm()
     
     
@@ -13,18 +13,14 @@ def ItemCreateView(request, *args, **kwargs):
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
-            # safe the dataform id
-            if type(request.POST['dataforms']) is list:
-                df_id = request.POST['dataforms'][0]
-            else:
-                df_id = request.POST['dataforms']
-                
-            redirect('dataform-detail', pk=df_id)
+            df = DataForm.objects.filter(id=pk_df).first()
+            return redirect(df)
+            
     context = {'form': form}
     return render(request, "items/item_create.html", context)
 
 
-def ItemUpdateView(request, pk_item, *args, **kwargs):
+def ItemUpdateView(request, pk_item, pk_df, *args, **kwargs):
     
     item = Item.objects.get(id=pk_item)
     form = ItemForm(instance=item)
@@ -34,18 +30,15 @@ def ItemUpdateView(request, pk_item, *args, **kwargs):
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            # safe the dataform id
-            if type(request.POST['dataforms']) is list:
-                df_id = request.POST['dataforms'][0]
-            else:
-                df_id = request.POST['dataforms']
-                
-            redirect('dataform-detail', pk=df_id)
+            df = DataForm.objects.filter(id=pk_df).first()
+            return redirect(df)
+        
+            
     context = {'form': form}
     return render(request, "items/item_create.html", context)
 
 
-def ItemDeleteView(request, *args, **kwargs):
+def ItemDeleteView(request, pk_item, *args, **kwargs):
     
     context = {}
     
