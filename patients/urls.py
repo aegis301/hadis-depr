@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     ################################# Patients #################################
-    path("list/", views.PatientListView.as_view(), name="patient-list"),
+    path("", views.PatientListView.as_view(), name="patient-list"),
     path(
         "<int:pk>/",
         views.PatientDetailView.as_view(),
@@ -20,5 +20,16 @@ urlpatterns = [
         "<int:pk>/delete/",
         views.PatientDeleteView.as_view(),
         name="patient-delete",
+    ),
+    ############################################# Visits
+    path(
+        "<int:pk>/detail/visit/create",
+        views.VisitCreateView.as_view(),
+        name="visit-create",
+    ),
+    path(
+        "<int:pk>/detail/visit/delete",
+        views.VisitDeleteView.as_view(),
+        name="visit-delete",
     )
 ]

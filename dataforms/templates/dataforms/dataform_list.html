@@ -11,7 +11,7 @@
 				<div class="card-body">
 					<h5 class="card-title">{{data_form.title}}</h5>
 					<p class="card-text">{{data_form.description}}</p>
-					<a href="{% url 'dataform-detail' data_form.id %}" class="btn btn-primary">Open</a>
+					<a href="{{ data_form.get_absolute_url }}" class="btn btn-primary">Open</a>
 				</div>
 			</div>
 		</div>

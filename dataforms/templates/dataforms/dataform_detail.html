@@ -18,15 +18,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for item in object.items.all %}
+					{% for item in item_list %}
 					<tr style="transform: rotate(0)">
-						<td>{{ item.name }}</td>
+						<td>{{ item.title }}</td>
 						<td>{{ item.description }}</td>
 						<td>
 							<a
+								name="item-update-btn"
+								id="item-update-btn"
+								href="{% url 'item-update' pk_df=object.id pk_item=item.id%}"
+								role="button"
+								>Edit</a
+							>
+							<a
 								name="item-delete-btn"
 								id="item-delete-btn"
-								href="#"
+								href="{% url 'item-delete' pk_df=object.id pk_item=item.id%}"
 								role="button"
 								>Delete</a
 							>

@@ -1,46 +1,104 @@
-{% extends "frontend/base.html" %} 
-{% block content %}
+{% extends "frontend/base.html" %} {% block content %}
 <div class="container-fluid mt-3 content-section">
-<h1>Welcome to HADIS</h1>
-<h2>Hospital Acquired Data Integration System</h2>
-<h3>On this page, details of a patient will be displayed</h3>
-<div class="row align-items-start">
-    <table class="table table-hover mt-3 content-section">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Date of Birth</th>
-            <th scope="col">Main Diagnosis</th>
-            <th scope="col">KIS ID</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Created By</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr style="transform: rotate(0);">
-                <td>{{ object.id }}</td>
-                <td>{{ object.last_name }}</td>
-                <td>{{ object.first_name }}</td>
-                <td>{{ object.date_of_birth|date:'d.m.o' }}</td>
-                <td>{{ object.main_diagnosis }}</td>
-                <td>{{ object.kis_id }}</td>
-                <td>{{ object.created_at }}</td>
-                <td>{{ object.created_by }}</td>
-              </tr>
-        </tbody>
-      </table>
-</div>
-<div class="row">
-    <div class="button-box">
-    <a name="back-btn" id="back-btn" class="btn btn-outline-info float-start" href="{% url 'patient-list'%}" role="button">Back</a>
-    <a name="delete-btn" id="edit-btn" class="btn btn-danger float-end" href="{% url 'patient-delete' object.id%}" role="button">Delete</a>
-    <a name="edit-btn" id="delete-btn" class="btn btn-warning float-end" href="{% url 'patient-update' object.id%}" role="button">Edit</a>
-</div>
-</div>
+	<h1 class="h1 mt-3 mb-5">Patient Detail View</h1>
+
+	<div class="row align-items-start">
+		<table class="table table-hover mt-3 content-section">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Date of Birth</th>
+					<th scope="col">Main Diagnosis</th>
+					<th scope="col">KIS ID</th>
+					<th scope="col">Created At</th>
+					<th scope="col">Created By</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="transform: rotate(0)">
+					<td>{{ object.id }}</td>
+					<td>{{ object.last_name }}</td>
+					<td>{{ object.first_name }}</td>
+					<td>{{ object.date_of_birth|date:'d.m.o' }}</td>
+					<td>{{ object.main_diagnosis }}</td>
+					<td>{{ object.kis_id }}</td>
+					<td>{{ object.created_at }}</td>
+					<td>{{ object.created_by }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="button-box">
+			<a
+				name="back-btn"
+				id="back-btn"
+				class="btn btn-outline-info float-start"
+				href="{% url 'patient-list'%}"
+				role="button"
+				>Back</a
+			>
+			<a
+				name="delete-btn"
+				id="edit-btn"
+				class="btn btn-danger float-end"
+				href="{% url 'patient-delete' object.id%}"
+				role="button"
+				>Delete</a
+			>
+			<a
+				name="edit-btn"
+				id="delete-btn"
+				class="btn btn-warning float-end"
+				href="{% url 'patient-update' object.id%}"
+				role="button"
+				>Edit</a
+			>
+		</div>
+	</div>
+	<div class="row">
+		<h3 class="h3 mt-5">Patient's Visits</h3>
+		<div class="container">
+			<a
+					  name="visit-add-btn"
+					  id="visit-add-btn"
+					  class="btn btn-primary float-start mb-3"
+					  href="{% url 'visit-create' object.id%}"
+					  role="button"
+					  >Add Visit</a
+				  >
+		</div>
+		<table class="table table-hover mt-3 content-section">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Visit Date</th>
+					<th scope="col">In Person Visit</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for visit in visit_list %}
+				<tr style="transform: rotate(0)">
+					<td>{{visit.id}}</td>
+					<td>{{visit.visit_date}}</td>
+					<td>{{visit.patient_in_hospital}}</td>
+					<td>
+						<a
+							name="item-delete-btn"
+							id="item-delete-btn"
+							href="{% url 'visit-delete' visit.id%}"
+							role="button"
+							>Delete</a
+						>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {% endblock content %}
-
-

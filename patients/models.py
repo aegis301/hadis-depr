@@ -2,12 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from model_utils.managers import InheritanceManager # improve querying in inheritance models
-from PIL import Image
-from dataforms.models import DataFormTemplate
-
-# Create your models here.
-
     
 class Patient(models.Model):
     last_name = models.CharField(max_length=200)
@@ -22,11 +16,20 @@ class Patient(models.Model):
         # default=User.objects.filter(username='christian')
     )
     main_diagnosis = models.CharField(max_length=1000, blank=False)
-    dataforms = models.ManyToManyField(DataFormTemplate)
-
+    
     def __str__(self):
         return self.first_name + " " + self.last_name
 
-    # how to redirect after create (reverse returs string representation of the full path, not actually redirect)
+    # how to redirect after create (reverse returns string representation of the full path, not actually redirect)
     def get_absolute_url(self):
         return reverse("patient-detail", kwargs={"pk": self.pk})
+    
+class Visit(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    visit_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.DO_NOTHING,  # don't delete patients if a user is deleted
+        # default=User.objects.filter(username='christian')
+    )
+    patient_in_hospital = models.BooleanField(default=True)

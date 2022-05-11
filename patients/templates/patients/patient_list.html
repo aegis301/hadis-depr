@@ -18,7 +18,7 @@
     <tbody>
         {% for patient in object_list %}
         <tr style="transform: rotate(0);">
-            <th scope="row"><a href="{% url 'patient-detail' patient.id%}" class="stretched-link">{{ patient.id }}</a></th>
+            <th scope="row"><a href="{{ patient.get_absolute_url }}" class="stretched-link">{{ patient.id }}</a></th>
             <td>{{ patient.last_name }}</td>
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.date_of_birth|date:'d.m.o' }}</td>
