@@ -82,7 +82,7 @@
 			<tbody>
 				{% for visit in visit_list %}
 				<tr style="transform: rotate(0)">
-					<td>{{visit.id}}</td>
+					<th scope="row"><a href="{{ visit.get_absolute_url }}" class="stretched-link">{{ visit.id }}</a></th>
 					<td>{{visit.visit_date}}</td>
 					<td>{{visit.patient_in_hospital}}</td>
 					<td>

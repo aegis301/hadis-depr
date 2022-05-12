@@ -28,19 +28,19 @@ class Item(models.Model):
         choices=ITEM_TYPE_CHOICES
     )
     
+    def __str__(self) -> str:
+        return self.name
+    
     def get_absolute_url(self):
         return reverse("dataform-detail", kwargs={"pk": self.pk})
     
 class NumericItem(Item):
     value = models.FloatField(blank=True, null=True)
     type = "NUM"
-    def __str__(self) -> str:
-        return self.name    
+        
 class TextItem(Item):
     value = models.TextField(blank=True, default="")
     type = "TEXT"
-    def __str__(self) -> str:
-        return self.name
     
 # class BooleanItem(models.Model):
 #     value = models.BooleanField(blank=True, null=True)

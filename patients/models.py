@@ -22,7 +22,7 @@ class Patient(models.Model):
 
     # how to redirect after create (reverse returns string representation of the full path, not actually redirect)
     def get_absolute_url(self):
-        return reverse("patient-detail", kwargs={"pk": self.pk})
+        return reverse("patient-detail", kwargs={"pk_patient": self.pk})
     
 class Visit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -33,3 +33,6 @@ class Visit(models.Model):
         # default=User.objects.filter(username='christian')
     )
     patient_in_hospital = models.BooleanField(default=True)
+    
+    def get_absolute_url(self):
+        return reverse("visit-detail", kwargs={"pk_visit": self.pk, "pk_patient": self.patient.id})
