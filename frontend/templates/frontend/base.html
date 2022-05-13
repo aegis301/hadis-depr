@@ -32,7 +32,15 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav mr-auto">
-                      <a class="nav-link" href="{% url 'dataform-list' %}">Forms</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							  Data
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							  <li><a class="dropdown-item" href="{% url 'dataform-list' %}">DataForms</a></li>
+							  <li><a class="dropdown-item" href="#">Items</a></li>
+							</ul>
+						  </li>
                       <a class="nav-link" href="{% url 'patient-list' %}">Patients</a>
                     </div>
 					<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
