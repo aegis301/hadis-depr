@@ -17,5 +17,8 @@ urlpatterns = [
         "dataform/<int:pk_df>/detail/item/<int:pk_item>/update",
         views.ItemUpdateView,
         name="item-update"
-    )
+    ),
+    path("item/",
+         views.ItemListView.as_view(),
+         name="item-list")
 ]

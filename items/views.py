@@ -2,7 +2,16 @@ from django.shortcuts import render, redirect
 from .forms import ItemCreationForm
 from .models import Item
 from dataforms.models import DataForm
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+class ItemListView(LoginRequiredMixin, ListView):
+    # automatically hands all retrieved objects down to the template as object_list
+    model = Item
+    template_name = "items/item_list.html"  # <app>/<model>_<viewtype>.html
+    ordering = ["-created_at"]
+    # paginate_by = 12
 
 def ItemCreateView(request, pk_df, *args, **kwargs):
     form = ItemCreationForm()
