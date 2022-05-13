@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import ItemForm
+from .forms import ItemCreationForm
 from .models import Item
 from dataforms.models import DataForm
 
 
 def ItemCreateView(request, pk_df, *args, **kwargs):
-    form = ItemForm()
+    form = ItemCreationForm()
     
     
     if request.method == 'POST':
         # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
-        form = ItemForm(request.POST)
+        form = ItemCreationForm(request.POST)
         if form.is_valid():
             form.save()
             df = DataForm.objects.filter(id=pk_df).first()
@@ -22,11 +22,11 @@ def ItemCreateView(request, pk_df, *args, **kwargs):
 
 def ItemUpdateView(request, pk_item, pk_df, *args, **kwargs):
     item = Item.objects.get(id=pk_item)
-    form = ItemForm(instance=item)
+    form = ItemCreationForm(instance=item)
     
     if request.method == 'POST':
         # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
-        form = ItemForm(request.POST, instance=item)
+        form = ItemCreationForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             df = DataForm.objects.filter(id=pk_df).first()
