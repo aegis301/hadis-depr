@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ItemCreationForm
 from .models import Item
 from dataforms.models import DataForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -12,6 +12,11 @@ class ItemListView(LoginRequiredMixin, ListView):
     template_name = "items/item_list.html"  # <app>/<model>_<viewtype>.html
     ordering = ["-created_at"]
     # paginate_by = 12
+
+class ItemDetailView(LoginRequiredMixin, DetailView):
+    model = Item
+    template_name = "items/item_detail.html"
+    pk_url_kwarg = "pk_item"
 
 def ItemCreateView(request, pk_df, *args, **kwargs):
     form = ItemCreationForm()

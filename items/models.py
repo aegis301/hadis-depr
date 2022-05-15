@@ -32,7 +32,7 @@ class Item(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse("dataform-detail", kwargs={"pk": self.pk})
+        return reverse("item-detail", kwargs={"pk_item": self.pk})
     
 class NumericItem(Item):
     value = models.FloatField(blank=True, null=True)
