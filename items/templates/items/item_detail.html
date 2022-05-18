@@ -34,7 +34,7 @@
 				name="back-btn"
 				id="back-btn"
 				class="btn btn-outline-info float-start"
-				href="{% url 'dataform-list'%}"
+				href="{% url 'item-list'%}"
 				role="button"
 				>Back</a
 			>
@@ -42,20 +42,38 @@
 				name="delete-btn"
 				id="edit-btn"
 				class="btn btn-danger float-end"
-				href="{% url 'dataform-delete' object.id%}"
+				href="{% url 'item-delete' object.id%}"
 				role="button"
 				>Delete</a
 			>
-			
+
 			<a
 				name="edit-btn"
 				id="delete-btn"
 				class="btn btn-warning float-end"
-				href="{% url 'dataform-update' object.id%}"
+				href="{% url 'item-update' object.id%}"
 				role="button"
 				>Edit</a
 			>
-		
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+			<h4 class="mt-4">Associated Dataforms</h4>
+			<table class="table table-hover mt-3 content-section">
+				<thead>
+					<tr>
+						<th scope="col">Title</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for dataform in object.dataforms.all %}
+					<tr style="transform: rotate(0)">
+						<td>{{ dataform.title }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
