@@ -9,7 +9,7 @@ This project is still under development and not ready for production yet! Feel f
 ### Tech in Use
 This project is mostly done in the Python webframework called Django. React integration is one of the goals I plan to integrate in the future.
 
-### Goals
+### Todos
 Here is the stuff I will need help on and a perfect chance for you to contribute:
 * Security - Harden the app against outside attacks (I'm just a script kiddo)
 * Data Extraction - Develop a GUI to extract data from the App (Will work on this pretty soon myself)
