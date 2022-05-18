@@ -29,7 +29,7 @@ class Item(models.Model):
     )
     
     def __str__(self) -> str:
-        return self.name
+        return self.title
     
     def get_absolute_url(self):
         return reverse("item-detail", kwargs={"pk_item": self.pk})
