@@ -26,6 +26,7 @@ urlpatterns = [
     path("dataform/", include("dataforms.urls")),
     path("users/", include("users.urls")),
     path("item/", include("items.urls")),
+    path("dataform/<int:pk_df>/", include("items.urls")),
     path("auth/", include("rest_framework.urls")),
 ]
 
