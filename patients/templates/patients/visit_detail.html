@@ -1,0 +1,99 @@
+{% extends "frontend/base.html" %} {% block content %}
+<div class="container-fluid mt-3 content-section">
+	<h1>Visit Details</h1>
+
+	<div class="row align-items-start">
+		<small id="form-created-at" class="form-text text-muted display-block">
+			Visit ate: {{object.visit_date}}
+		</small>
+		<small id="form-created-at" class="form-text text-muted display-block">
+			Created by: {{object.created_by}}
+		</small>
+		<div class="container">
+			<table class="table table-hover mt-3 content-section">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in item_list %}
+					<tr style="transform: rotate(0)">
+						<td>{{ item.title }}</td>
+						<td>{{ item.description }}</td>
+						<td>
+							<a
+								name="item-update-btn"
+								id="item-update-btn"
+								href="{% url 'item-update' pk_df=object.id pk_item=item.id%}"
+								role="button"
+								>Edit</a
+							>
+							<a
+								name="item-delete-btn"
+								id="item-delete-btn"
+								href="{% url 'item-delete' pk_df=object.id pk_item=item.id%}"
+								role="button"
+								>Delete</a
+							>
+						</td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+		<a
+			name="df-add-btn"
+			id="df-add-btn"
+			class="btn btn-primary float-start mb-3 mx-3"
+			href="#"
+			role="button"
+			>Add DataForm</a
+		>
+      <a
+				name="item-add-btn"
+				id="item-add-btn"
+				class="btn btn-primary float-start mb-3"
+				href="{% url 'item-instance-create' pk_patient=object.patient pk_visit=object.id%}"
+				role="button"
+				>Add Item</a
+			>
+		</div>
+	</div>
+	<div class="row">
+		<div class="button-box">
+			{% comment %} <a
+				name="back-btn"
+				id="back-btn"
+				class="btn btn-outline-info float-start"
+				href="{% url 'patient-detail' pk_patient%}"
+				role="button"
+				>Back</a
+			> {% endcomment %}
+			<a
+				name="delete-btn"
+				id="edit-btn"
+				class="btn btn-danger float-end"
+				href="{% url 'dataform-delete' object.id%}"
+				role="button"
+				>Delete</a
+			>
+			
+			<a
+				name="edit-btn"
+				id="delete-btn"
+				class="btn btn-warning float-end"
+				href="{% url 'dataform-update' object.id%}"
+				role="button"
+				>Edit</a
+			>
+		
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

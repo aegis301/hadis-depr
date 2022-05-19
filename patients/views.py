@@ -25,10 +25,12 @@ class PatientListView(LoginRequiredMixin, ListView):
 class PatientDetailView(LoginRequiredMixin, DetailView):
     model = Patient
     template_name = "patients/patient_detail.html"
+    # change default object getter in the URL
+    pk_url_kwarg = "pk_patient"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['visit_list'] = Visit.objects.filter(patient_id=self.kwargs['pk'])
+        context['visit_list'] = Visit.objects.filter(patient_id=self.kwargs['pk_patient'])
         return context
 
 
@@ -67,6 +69,7 @@ class PatientUpdateView(LoginRequiredMixin, UpdateView):
         "kis_id",
         "main_diagnosis",
     ]
+    pk_url_kwarg = "pk_patient"
 
     def get_form(self, form_class=None):
         form = super(PatientUpdateView, self).get_form(form_class)
@@ -89,7 +92,9 @@ class PatientUpdateView(LoginRequiredMixin, UpdateView):
 class PatientDeleteView(LoginRequiredMixin, DeleteView):
     model = Patient
     template_name = "patients/patient_confirm_delete.html"
+    pk_url_kwarg = "pk_patient"
     success_url = "/patient/list/"
+    
     
 ####################################################################### Visits
 
@@ -122,3 +127,7 @@ class VisitDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self) -> str:
         return reverse("patient-detail", args=[self.object.patient_id])
 
+class VisitDetailView(LoginRequiredMixin, DetailView):
+    model = Visit
+    pk_url_kwarg = "pk_visit"
+    template_name = "patients/visit_detail.html"

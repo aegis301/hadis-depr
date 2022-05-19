@@ -1,10 +1,16 @@
 from django.forms import ModelForm
-from .models import Item
+from .models import Item, NumericItem
 
-class ItemForm(ModelForm):
+class ItemCreationForm(ModelForm):
     class Meta:
         model = Item
         fields = ['title', 'description', 'type', 'dataforms']
+        
+
+class ItemInstanceCreationForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = []
         
         
     
