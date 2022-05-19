@@ -23,5 +23,10 @@ urlpatterns = [
          name="item-list"),
     path("<int:pk_item>/detail",
          views.ItemDetailView.as_view(),
-         name="item-detail")
+         name="item-detail"),
+    # path(
+    #     "/create-numeric",
+    #     views.NumericItemCreateView,
+    #     name="numericitem-create"
+    # )
 ]

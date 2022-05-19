@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ItemCreationForm
+from .forms import ItemCreationForm, NumericItemCreationForm
 from .models import Item
 from dataforms.models import DataForm
 from django.views.generic import ListView, DetailView
@@ -33,6 +33,20 @@ def ItemCreateView(request, pk_df, *args, **kwargs):
     context = {'form': form}
     return render(request, "items/item_create.html", context)
 
+# def NumericItemCreateView(request, pk_df, *args, **kwargs):
+#     form = NumericItemCreationForm()
+    
+    
+#     if request.method == 'POST':
+#         # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
+#         form = NumericItemCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             df = DataForm.objects.filter(id=pk_df).first()
+#             return redirect(df)
+            
+#     context = {'form': form}
+#     return render(request, "items/item_create.html", context)
 
 def ItemUpdateView(request, pk_item, pk_df, *args, **kwargs):
     item = Item.objects.get(id=pk_item)
