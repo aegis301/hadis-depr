@@ -22,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(find_dotenv())
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PWD = os.getenv('POSTGRES_PWD')
-
+DJANGO_SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sr3erkq@bgssj--%_x+i*8-qd*7rj(5#pp7ic!^g+l6d_f$0*j'
+SECRET_KEY = DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
