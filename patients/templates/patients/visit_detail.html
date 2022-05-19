@@ -58,7 +58,7 @@
 				name="item-add-btn"
 				id="item-add-btn"
 				class="btn btn-primary float-start mb-3"
-				href="{% url 'item-create' object.id%}"
+				href="{% url 'item-instance-create' pk_patient=object.patient pk_visit=object.id%}"
 				role="button"
 				>Add Item</a
 			>

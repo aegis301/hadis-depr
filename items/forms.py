@@ -7,10 +7,10 @@ class ItemCreationForm(ModelForm):
         fields = ['title', 'description', 'type', 'dataforms']
         
 
-# class NumericItemCreationForm(ModelForm):
-#     class Meta:
-#         model = NumericItem
-#         fields = ['title', 'description', 'type', 'dataforms']
+class ItemInstanceCreationForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = []
         
         
     
