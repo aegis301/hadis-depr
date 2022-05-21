@@ -25,7 +25,7 @@ urlpatterns = [
          views.ItemDetailView.as_view(),
          name="item-detail"),
     path(
-        "create-instance",
+        "<int:pk_visit>/detail/create-instance",
         views.ItemInstanceCreateView,
         name="item-instance-create"
     )
