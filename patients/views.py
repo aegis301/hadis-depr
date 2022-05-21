@@ -1,4 +1,5 @@
 from multiprocessing import context
+from django.shortcuts import render, redirect
 from django.views.generic import (
     ListView,
     DetailView,
@@ -6,6 +7,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from .forms import ItemInstanceCreationForm
+from dataforms.models import DataForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from patients.models import Patient, Visit
 from django.urls import reverse
@@ -131,3 +134,19 @@ class VisitDetailView(LoginRequiredMixin, DetailView):
     model = Visit
     pk_url_kwarg = "pk_visit"
     template_name = "patients/visit_detail.html"
+    
+    
+def ItemInstanceCreateView(request, pk_df, *args, **kwargs):
+    form = ItemInstanceCreationForm()
+    
+    
+    if request.method == 'POST':
+        # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
+        form = ItemInstanceCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            df = DataForm.objects.filter(id=pk_df).first()
+            return redirect(df)
+            
+    context = {'form': form}
+    return render(request, "items/item_create.html", context)

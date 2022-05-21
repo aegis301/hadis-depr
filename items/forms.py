@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Item, NumericItem
+from .models import Item
 
 class ItemCreationForm(ModelForm):
     class Meta:
@@ -7,10 +7,6 @@ class ItemCreationForm(ModelForm):
         fields = ['title', 'description', 'type', 'dataforms']
         
 
-class ItemInstanceCreationForm(ModelForm):
-    class Meta:
-        model = Item
-        fields = []
-        
+
         
     
