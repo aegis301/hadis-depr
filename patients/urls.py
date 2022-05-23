@@ -37,7 +37,12 @@ urlpatterns = [
         views.VisitDetailView.as_view(),
         name="visit-detail"
     ),
-    
+    ########################################################        Dataforms to Visits           #######################################
+    path(
+        "<int:pk_patient>/detail/visit/<int:pk_visit>/add_dataform",
+        views.DataformAddView,
+        name="dataform-add"
+    ),
     
     
     

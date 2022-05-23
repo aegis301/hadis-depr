@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "/create",
+        "create",
         views.ItemCreateView,
         name="item-create"
     ),

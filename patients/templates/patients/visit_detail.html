@@ -50,7 +50,7 @@
 			name="df-add-btn"
 			id="df-add-btn"
 			class="btn btn-primary float-start mb-3 mx-3"
-			href="#"
+			href="{% url 'dataform-add' pk_patient=object.patient.id pk_visit=object.id%}"
 			role="button"
 			>Add DataForm</a
 		>

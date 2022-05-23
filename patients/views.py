@@ -150,3 +150,8 @@ def ItemInstanceCreateView(request, pk_df, *args, **kwargs):
             
     context = {'form': form}
     return render(request, "items/item_create.html", context)
+
+def DataformAddView(request, *args, **kwargs):
+            
+    context = {}
+    return render(request, "patients/dataform_add.html", context)
