@@ -1,11 +1,16 @@
-{% extends "frontend/base.html" %} 
+{% extends "frontend/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container mt-3">
-    <select name="dataform-selection-field" id="dataform-selection">
-        {% for df in dataforms %}
-        <option value="{{df.id}}">{{df.title}}</option>
-        {% endfor %}
-    </select>
+    <div class="container">
+        <select name="dataform-selection-field" id="dataform-selection" class="form-select-lg">
+            {% for df in dataforms %}
+            <option value="{{df.id}}">{{df.title}}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary">Choose</button>
+    </div>
+
 </div>
 
 {% endblock content %}
