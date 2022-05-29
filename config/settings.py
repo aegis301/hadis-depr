@@ -123,6 +123,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# make sure static files are served properly
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
