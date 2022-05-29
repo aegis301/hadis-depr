@@ -1,4 +1,4 @@
-{% extends "frontend/base.html" %} 
+{% extends "base/base.html" %} 
 
 {% block content %}
     <div class="container content-section mt-5 mw-50">
@@ -6,12 +6,12 @@
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4 mt-3">Delete Data Form</legend>
-                    <h2>Are you sure you want to delete form {{ object.title }}?</h2>
+                    <legend class="border-bottom mb-4 mt-3">Delete Patient</legend>
+                    <h2>Are you sure you want to delete this visit?</h2>
                 </fieldset>
                 <div class="form-group">
                     <button type="submit" class="btn btn-danger">Delete</button>
-                    <a class="btn btn-outline-secondary" href="{% url 'dataform-detail' object.id %}">Cancel</a>
+                    <a class="btn btn-outline-secondary" href="{% url 'patient-detail' object.patient_id %}">Cancel</a>
                 </div>
             </form>
         </div>

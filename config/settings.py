@@ -39,7 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'frontend.apps.FrontendConfig',
+    'base.apps.BaseConfig',
     'patients.apps.PatientsConfig',
     'dataforms.apps.DataformsConfig',
     'items.apps.ItemsConfig',
