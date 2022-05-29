@@ -1,8 +1,10 @@
-import _ from 'lodash';
+import React from 'react';
+import ReactDOM from "react-dom";
+import HadisApplication from "./App"
 
-function component() {
-  const element = document.createElement('div');
-  element.innerHTML =  _.join(['Hello', 'lodash'], ' ');
-  return element;
-}
-document.body.appendChild(component());
+ReactDOM.render(
+  // Our main React application component, which we've imported from another file
+  <EmployeeApplication />,
+  // Gets rendered to the <div> we defined in our Django template using the shared id
+  document.getElementById('js-framework-home')
+);
