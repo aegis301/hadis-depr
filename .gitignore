@@ -10,3 +10,6 @@ hadis/
 */package.json
 /*/migrations
 .env
+
+# javascript stuff
+node_modules

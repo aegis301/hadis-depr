@@ -1,0 +1,24 @@
+{
+  "name": "hadis",
+  "version": "1.0.0",
+  "description": "The open access hospital acquired data integration system. Record the data you get, to get the data you need.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aegis301/hadis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aegis301/hadis/issues"
+  },
+  "homepage": "https://github.com/aegis301/hadis#readme",
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
