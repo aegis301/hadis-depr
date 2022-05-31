@@ -50,7 +50,7 @@
 			name="df-add-btn"
 			id="df-add-btn"
 			class="btn btn-primary float-start mb-3 mx-3"
-			href="#"
+			href="{% url 'add-dataform' pk_patient=object.patient pk_visit=object.id %}"
 			role="button"
 			>Add DataForm</a
 		>
@@ -58,7 +58,7 @@
 				name="item-add-btn"
 				id="item-add-btn"
 				class="btn btn-primary float-start mb-3"
-				href="{% url 'item-instance-create' pk_visit=object.id%}"
+				href="#"
 				role="button"
 				>Add Item</a
 			>

@@ -42,8 +42,8 @@ urlpatterns = [
     
     
     path(
-        "<int:pk_visit>/detail/create-instance",
-        views.ItemInstanceCreateView,
-        name="item-instance-create"
+        "<int:pk_patient>/detail/visit/<int:pk_visit>/detail/add-dataform",
+        views.AddDataformView,
+        name="add-dataform"
     )
 ]

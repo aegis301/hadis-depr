@@ -136,17 +136,5 @@ class VisitDetailView(LoginRequiredMixin, DetailView):
     template_name = "patients/visit_detail.html"
     
     
-def ItemInstanceCreateView(request, pk_df, *args, **kwargs):
-    form = ItemInstanceCreationForm()
-    
-    
-    if request.method == 'POST':
-        # print("Printing POST: ", request.POST, int(request.POST['dataforms']))
-        form = ItemInstanceCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            df = DataForm.objects.filter(id=pk_df).first()
-            return redirect(df)
-            
-    context = {'form': form}
-    return render(request, "items/item_create.html", context)
+def AddDataformView(LoginRequiredMixin, request):
+    return render(request, 'patients/add_dataform.html')
