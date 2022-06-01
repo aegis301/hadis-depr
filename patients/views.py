@@ -138,3 +138,4 @@ class VisitDetailView(LoginRequiredMixin, DetailView):
     
 def AddDataformView(LoginRequiredMixin, request):
     return render(request, 'patients/add_dataform.html')
+## TODO #10 fix routing for add dataform
