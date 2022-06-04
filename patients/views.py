@@ -136,6 +136,6 @@ class VisitDetailView(LoginRequiredMixin, DetailView):
     template_name = "patients/visit_detail.html"
     
     
-def AddDataformView(LoginRequiredMixin, request):
+def AddDataformView(request, *args, **kwargs):
     return render(request, 'patients/add_dataform.html')
-## TODO #10 fix routing for add dataform
+
