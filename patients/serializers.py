@@ -26,3 +26,4 @@ class VisitSerializer(serializers.Serializer):
             "created_by",
             "patient_in_hospital"
         )
+        
