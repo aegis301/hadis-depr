@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from model_utils.managers import InheritanceManager # improve querying in inheritance models
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Item(models.Model):
@@ -15,7 +15,7 @@ class Item(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(default=None)
     created_at = models.DateTimeField(default=timezone.now)
-    recorded_at = models.DateTimeField(blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     
     dataforms = models.ManyToManyField(to="dataforms.DataForm", blank=True)
     visits = models.ManyToManyField(to="patients.Visit", blank=True)
