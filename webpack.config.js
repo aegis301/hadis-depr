@@ -1,20 +1,32 @@
-const path = require('path');
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: './frontend/index.js',  // path to our input file
+  entry: "./src/index.js",
   output: {
-    filename: 'index-bundle.js',  // output bundle file name
-    path: path.resolve(__dirname, './static'),  // path to our Django static directory
+    path: path.resolve(__dirname, "./static/frontend"),
+    filename: "[name].js",
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/preset-env", "@babel/preset-react"] }
+        use: {
+          loader: "babel-loader",
+        },
       },
-    ]
-  }
+    ],
+  },
+  optimization: {
+    minimize: true,
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        // This has effect on the react lib size
+        NODE_ENV: JSON.stringify("production"),
+      },
+    }),
+  ],
 };
-
