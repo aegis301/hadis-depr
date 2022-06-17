@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Typography from '@mui/material/Typography';
+import Home from './Home';
+import HadisAppBar from './AppBar';
+
 
 
 export default function App(props) {
-    return (
-        <Typography variant="h1" color="initial">Hello, world!</Typography>
+    return (<div>
+        <HadisAppBar />
+        <Typography variant="h5" color="initial">Hello, {props.name}!</Typography>
+    </div>
+        
     );
 }
 
 const appDiv = document.getElementById('app');
-render(<App />, appDiv);
+render(<App name="Lea" />, appDiv);
 
 
